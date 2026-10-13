@@ -42,7 +42,8 @@ cleanup() { cd "$ROOT"; git worktree remove --force "$WORKTREE" >/dev/null 2>&1 
 trap cleanup EXIT
 git worktree add --detach "$WORKTREE" HEAD >/dev/null
 cd "$WORKTREE"
-git switch -c "$BRANCH"
+# Commit on detached HEAD. This avoids leaving behind a local results branch
+# after a failed upload and permits safe retries of completed runs.
 mkdir -p "results/$RUN_NAME"
 for file in metrics.csv summary.json metadata.json validation.json reclaim.json host-events.jsonl guest-console.log firecracker.log; do
   if [[ -f "$RUN_DIR/$file" ]]; then
@@ -53,5 +54,6 @@ done
 git add -f "results/$RUN_NAME"
 git -c user.name='Firecracker Experiment' -c user.email='fc-memory-lab@users.noreply.github.com' \
   commit -m "results: $RUN_NAME"
-git push --set-upstream origin "$BRANCH"
+# Explicit refspec creates a dedicated immutable remote results branch.
+git push origin "HEAD:refs/heads/$BRANCH"
 printf '\nPublished: %s\n' "$BRANCH"
