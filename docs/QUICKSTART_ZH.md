@@ -9,20 +9,19 @@
 在 cpu-15 的 host shell 执行：
 
 ```bash
-git clone https://github.com/pe0-p1e/agentvm-memory.git ~/agentvm-memory
 cd ~/agentvm-memory
+git remote set-url origin https://github.com/pe0-p1e/agentvm-memory.git
+git config --local credential.helper 'cache --timeout=7200'
+git fetch origin
+git ls-remote origin HEAD
 python3 -m unittest discover -s tests -v
-./scripts/setup_ssh.sh
 ```
 
-在仓库网页 `Settings → Deploy keys → Add deploy key` 添加上一步打印的 `.pub` 公钥，勾选 `Allow write access`。私钥只保留在服务器，不要提交、发聊天或上传。之后：
+你所在实验室网络对 `github.com:22` 和 `ssh.github.com:443` 连接会直接 reset；因此**不用继续尝试 SSH key**。我们已经让三个实验分支的 `publish_results.sh` 支持 HTTPS。
 
-```bash
-git remote set-url origin git@github.com:pe0-p1e/agentvm-memory.git
-GIT_SSH_COMMAND="ssh -i $HOME/.ssh/id_ed25519_fc_memory_lab -o IdentitiesOnly=yes" git ls-remote origin HEAD
-```
+GitHub 网页上创建一个 **Fine-grained personal access token**：<https://github.com/settings/personal-access-tokens/new>。资源所有者选 `pe0-p1e`，只允许仓库 `agentvm-memory`，仓库权限设为 **Contents → Read and write**，设置有效期。第一次 `git push` 提示时输入 GitHub 用户名 `pe0-p1e`，密码位置粘贴 token（不回显）。不要把 token 写在 remote URL、shell 命令、脚本或聊天中。
 
-首次 SSH 连接先按 GitHub 官方公布的指纹验证 host key。若 cpu-15 无法直连 GitHub 22 端口，需要另行配置 GitHub SSH over port 443。
+本地 `credential.helper cache` 只在内存中短暂缓存凭据（这里是 7200 秒），方便连续三次上传。如果需要每次输入，可不设置。若 HTTPS 也不通，就不要再尝试网络推送：先用 `./scripts/run_all.sh` 本地运行，然后通过 `scp` 把 `runs/` 的结果取回个人电脑，再由个人电脑推送。
 
 ## C. 执行实验并逐个上传结果
 
