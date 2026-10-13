@@ -1,0 +1,15 @@
+{
+  "missing_guest_markers": [],
+  "missing_phases": [],
+  "mode": "balloon",
+  "samples_by_phase": {
+    "allocated": 22,
+    "balloon_deflated": 58,
+    "balloon_inflated": 20,
+    "baseline": 12,
+    "booting": 2,
+    "freed": 12
+  },
+  "valid": true,
+  "warnings": []
+}
