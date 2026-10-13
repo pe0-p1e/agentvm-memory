@@ -85,6 +85,7 @@ sudo mount -o loop "$DISK" "$MOUNT_DIR"
 MOUNTED=1
 [[ -e "$MOUNT_DIR/usr/bin/python3" ]] || { echo 'Guest rootfs has no /usr/bin/python3' >&2; exit 3; }
 sudo install -D -m 0644 "$ROOT/guest/workload.py" "$MOUNT_DIR/opt/fc-memory/workload.py"
+sudo install -D -m 0644 "$ROOT/guest/agent_replay.py" "$MOUNT_DIR/opt/fc-memory/agent_replay.py"
 sudo install -D -m 0644 "$ROOT/guest/fc-memory.service" "$MOUNT_DIR/etc/systemd/system/fc-memory.service"
 sudo mkdir -p "$MOUNT_DIR/etc/systemd/system/multi-user.target.wants"
 sudo ln -sfn ../fc-memory.service "$MOUNT_DIR/etc/systemd/system/multi-user.target.wants/fc-memory.service"
@@ -140,15 +141,16 @@ meta={'mode':mode,'memory_mib':int(mem),'balloon_mib':int(balloon),'free_page_re
       'host_kernel':platform.release(),'host_machine':platform.machine(),
       'firecracker_binary':fc,'firecracker_version':cmd([fc,'--version']),
       'guest_kernel_sha256':digest(kernel),'source_rootfs_sha256':digest(rootfs),
-      'source_commit':cmd(['git','rev-parse','HEAD'])}
+      'source_commit':cmd(['git','rev-parse','HEAD']), 'workload':'deterministic_code_repair_tool_replay', 'monitor_interval_s':0.5}
 Path(out,'metadata.json').write_text(json.dumps(meta,indent=2)+'\n')
 PY
 
-set_phase() { echo "$1" > "$PHASE"; say "Phase: $1"; }
+event() { python3 "$ROOT/scripts/host_events.py" "$RUN_DIR/host-events.jsonl" "$1" "${2:-}"; }
+set_phase() { echo "$1" > "$PHASE"; event phase "$1"; say "Phase: $1"; }
 wait_marker() {
   local marker="$1" limit="$2" i
   for ((i=0;i<limit;i++)); do
-    if grep -aFq "FCMEM_STAGE:$marker" "$CONSOLE"; then return 0; fi
+    if grep -aFq "FCMEM_STAGE:$marker" "$CONSOLE"; then event guest_marker_seen "$marker"; return 0; fi
     if grep -aFq 'FCMEM_STAGE:error:' "$CONSOLE"; then echo 'Guest workload error' >&2; return 1; fi
     if ! kill -0 "$FC_PID" 2>/dev/null; then echo 'VMM exited early' >&2; return 1; fi
     sleep 1
@@ -158,7 +160,7 @@ wait_marker() {
 }
 set_phase booting
 python3 "$ROOT/scripts/monitor.py" --pid "$FC_PID" --socket "$SOCK" \
-    --phase "$PHASE" --output "$CSV" --stop-file "$STOP_FILE" &
+    --phase "$PHASE" --output "$CSV" --stop-file "$STOP_FILE" --interval 0.5 &
 MON_PID=$!
 say 'Booting guest'
 api PUT /actions '{"action_type":"InstanceStart"}'
@@ -172,11 +174,15 @@ sleep 12
 case "$MODE" in
   balloon)
     say "Inflating balloon to $BALLOON_MIB MiB"
+    event balloon_inflate_before "$BALLOON_MIB"
     api PATCH /balloon "{\"amount_mib\":$BALLOON_MIB}"
+    event balloon_inflate_after "$BALLOON_MIB"
     set_phase balloon_inflated
     sleep 20
     say 'Deflating balloon to zero'
+    event balloon_deflate_before "0"
     api PATCH /balloon '{"amount_mib":0}'
+    event balloon_deflate_after "0"
     set_phase balloon_deflated
     sleep 20
     ;;
@@ -189,6 +195,12 @@ case "$MODE" in
     sleep 40
     ;;
 esac
+wait_marker agent_reuse 120
+set_phase agent_reuse
+wait_marker retouch_start 120
+set_phase retouch
+wait_marker retouched 120
+set_phase retouched
 wait_marker done 120
 say 'Workload done; stopping the experiment process'
 touch "$STOP_FILE"
@@ -196,4 +208,5 @@ wait "$MON_PID" || true
 MON_PID=""
 python3 "$ROOT/scripts/summarize.py" "$CSV" "$RUN_DIR/summary.json"
 python3 "$ROOT/scripts/validate_run.py" "$MODE" "$CSV" "$CONSOLE" "$RUN_DIR/validation.json"
+python3 "$ROOT/scripts/analyze_reclaim.py" "$RUN_DIR"
 say 'Completed successfully. Run scripts/publish_results.sh if desired.'

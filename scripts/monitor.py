@@ -12,7 +12,8 @@ FIELDS = [
     'host_rssfile_mib', 'balloon_target_mib', 'balloon_actual_mib',
     'guest_available_mib', 'guest_free_mib', 'guest_total_mib',
     'guest_major_faults', 'guest_minor_faults', 'guest_oom_kills',
-    'guest_direct_reclaim', 'sample_ok',
+    'guest_direct_reclaim', 'host_pss_mib', 'host_cpu_s',
+    'host_minor_faults', 'host_major_faults', 'epoch_s', 'sample_ok',
 ]
 
 
@@ -27,6 +28,27 @@ def read_proc_status(pid):
     return result
 
 
+def read_host_extra(pid):
+    result = {}
+    try:
+        for line in Path(f'/proc/{pid}/smaps_rollup').read_text().splitlines():
+            if line.startswith('Pss:'):
+                result['host_pss_mib'] = round(int(line.split()[1]) / 1024, 3)
+                break
+    except (FileNotFoundError, PermissionError, ProcessLookupError):
+        pass
+    try:
+        stat = Path(f'/proc/{pid}/stat').read_text()
+        tail = stat[stat.rfind(')') + 2:].split()
+        hz = __import__('os').sysconf('SC_CLK_TCK')
+        result['host_cpu_s'] = round((int(tail[11]) + int(tail[12])) / hz, 4)
+        result['host_minor_faults'] = int(tail[7])
+        result['host_major_faults'] = int(tail[9])
+    except (FileNotFoundError, ProcessLookupError, ValueError, IndexError):
+        pass
+    return result
+
+
 def read_balloon(socket):
     cmd = ['curl', '--fail', '--silent', '--show-error', '--max-time', '3',
            '--unix-socket', socket, 'http://localhost/balloon/statistics']
@@ -38,11 +60,13 @@ def read_balloon(socket):
 
 def sample(pid, socket, phase, start):
     rss = read_proc_status(pid)
+    extra = read_host_extra(pid)
     b = read_balloon(socket)
     def mb(name):
         return round(b[name] / 1048576, 3) if b.get(name) is not None else ''
     return {
         'timestamp_utc': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()),
+        'epoch_s': round(time.time(), 6),
         'elapsed_s': round(time.monotonic()-start, 3),
         'phase': phase,
         'host_rss_mib': rss.get('VmRSS', ''),
@@ -57,6 +81,7 @@ def sample(pid, socket, phase, start):
         'guest_minor_faults': b.get('minor_faults', ''),
         'guest_oom_kills': b.get('oom_kill', ''),
         'guest_direct_reclaim': b.get('direct_reclaim', ''),
+        **extra,
         'sample_ok': 1,
     }
 
@@ -68,7 +93,10 @@ def main():
     ap.add_argument('--phase', required=True)
     ap.add_argument('--output', required=True)
     ap.add_argument('--stop-file', required=True)
+    ap.add_argument('--interval', type=float, default=1.0)
     args = ap.parse_args()
+    if args.interval < 0.25:
+        ap.error('Minimum interval is 0.25 seconds')
     start = time.monotonic()
     errors_path = Path(args.output).with_suffix('.errors.log')
     with open(args.output, 'w', newline='') as f:
@@ -85,7 +113,7 @@ def main():
             except (RuntimeError, ValueError, OSError, subprocess.TimeoutExpired) as ex:
                 with errors_path.open('a') as err:
                     err.write(f'{time.time()}: {type(ex).__name__} {ex}\n')
-            time.sleep(1)
+            time.sleep(args.interval)
 
 
 if __name__ == '__main__':

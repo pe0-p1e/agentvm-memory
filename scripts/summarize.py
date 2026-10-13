@@ -7,8 +7,8 @@ import sys
 from collections import defaultdict
 from pathlib import Path
 
-PHASES = ['baseline', 'allocated', 'freed', 'balloon_inflated', 'balloon_deflated', 'reporting_after_free', 'control_after_free']
-METRICS = ['host_rss_mib', 'host_rssanon_mib', 'balloon_actual_mib', 'guest_available_mib', 'guest_major_faults']
+PHASES = ['baseline', 'allocated', 'freed', 'balloon_inflated', 'balloon_deflated', 'reporting_after_free', 'control_after_free', 'agent_reuse', 'retouch', 'retouched']
+METRICS = ['host_rss_mib', 'host_rssanon_mib', 'balloon_actual_mib', 'guest_available_mib', 'guest_major_faults', 'host_pss_mib', 'host_cpu_s']
 
 
 def summarize(rows):

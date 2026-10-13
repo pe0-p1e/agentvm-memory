@@ -18,7 +18,8 @@ def validate(mode, rows, console):
         raise ValueError('Unknown mode')
     phases = Counter(r['phase'] for r in rows if r.get('sample_ok') == '1')
     missing = [p for p in REQUIRED_PHASES[mode] if phases[p] < 2]
-    markers = ['baseline', 'allocated', 'freed', 'done']
+    markers = ['baseline', 'allocated', 'freed', 'agent_reuse',
+               'retouch_start', 'retouched', 'done']
     missing_markers = [m for m in markers if 'FCMEM_STAGE:' + m not in console]
     warnings = []
     if mode == 'balloon':

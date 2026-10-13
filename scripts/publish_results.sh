@@ -35,7 +35,7 @@ git worktree add --detach "$WORKTREE" HEAD >/dev/null
 cd "$WORKTREE"
 git switch -c "$BRANCH"
 mkdir -p "results/$RUN_NAME"
-for file in metrics.csv summary.json metadata.json validation.json guest-console.log firecracker.log; do
+for file in metrics.csv summary.json metadata.json validation.json reclaim.json host-events.jsonl guest-console.log firecracker.log; do
   if [[ -f "$RUN_DIR/$file" ]]; then
     cp "$RUN_DIR/$file" "results/$RUN_NAME/$file"
   fi
