@@ -31,6 +31,34 @@ For the same 512 MiB allocation, host RSS after guest free remained ~633.98 MiB 
 - Do not automatically publish credentials, sandbox identifiers, internal endpoints or service logs to this repo (currently Public).
 - The CLI may be missing even if the server is running; a missing CLI does not imply the server is absent.
 
+## User-scoped AENV CLI bootstrap (no server changes)
+
+On `cpu-15` as your unprivileged user, while Mihomo is running:
+
+```bash
+source ~/.config/mihomo/proxy.env
+cd ~/agentvm-memory
+git -c http.version=HTTP/1.1 fetch \
+  https://github.com/pe0-p1e/agentvm-memory.git \
+  '+refs/heads/exp/agentenv-memory:refs/remotes/origin/exp/agentenv-memory'
+git switch exp/agentenv-memory
+git merge --ff-only origin/exp/agentenv-memory
+bash scripts/bootstrap_agentenv_cli.sh
+export PATH="$HOME/.local/bin:$PATH"
+aenv --help
+```
+
+The bootstrap explicitly checks `jq`, `curl`, `tar`, `gzip`, and `sha256sum` before running the official CLI-only installer; missing tools trigger a safe failure rather than an unplanned `sudo apt-get`.
+
+An installed CLI **does not imply API authorization**. Ask the AgentENV instance owner for an endpoint and an API key that you are explicitly allowed to use; never copy a lab-global server secret from Docker or root-only locations. Then run:
+
+```bash
+aenv auth
+python3 scripts/agentenv_preflight.py
+```
+
+Do not paste the API key or full `aenv list` output into public messages.
+
 ## Preflight
 
 ```bash
