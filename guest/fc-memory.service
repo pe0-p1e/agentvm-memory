@@ -1,0 +1,14 @@
+[Unit]
+Description=Firecracker isolated guest memory workload
+After=basic.target local-fs.target
+Wants=basic.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/python3 -u /opt/fc-memory/workload.py
+StandardOutput=journal+console
+StandardError=journal+console
+TimeoutStartSec=0
+
+[Install]
+WantedBy=multi-user.target

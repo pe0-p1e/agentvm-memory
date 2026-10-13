@@ -1,0 +1,11 @@
+__pycache__/
+.pytest_cache/
+*.pyc
+runs/
+*.ext4
+*.sock
+*.key
+*.pem
+*.id_rsa
+*.pub
+.env
