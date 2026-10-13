@@ -1,0 +1,14 @@
+{
+  "missing_guest_markers": [],
+  "missing_phases": [],
+  "mode": "baseline",
+  "samples_by_phase": {
+    "allocated": 22,
+    "baseline": 12,
+    "booting": 2,
+    "control_after_free": 78,
+    "freed": 12
+  },
+  "valid": true,
+  "warnings": []
+}
