@@ -7,6 +7,15 @@ RUN_DIR="${1:-$(find "$ROOT/runs" -mindepth 1 -maxdepth 1 -type d | sort | tail 
 [[ -d "$RUN_DIR" && -s "$RUN_DIR/metrics.csv" && -s "$RUN_DIR/summary.json" ]] || {
   echo "No completed run: $RUN_DIR" >&2; exit 2;
 }
+# Normalize BEFORE switching to a temporary Git worktree; the suite passes a
+# path relative to the original repository, which is otherwise invalid there.
+RUN_DIR="$(realpath -e -- "$RUN_DIR")"
+[[ "$RUN_DIR" == "$ROOT/runs/"* ]] || {
+  echo "Refusing to publish a directory outside $ROOT/runs" >&2; exit 2;
+}
+[[ -s "$RUN_DIR/metadata.json" && -s "$RUN_DIR/validation.json" ]] || {
+  echo "Incomplete run: required metadata.json or validation.json missing" >&2; exit 2;
+}
 RUN_NAME="$(basename "$RUN_DIR")"
 [[ "$RUN_NAME" =~ ^[A-Za-z0-9_.-]+$ ]] || exit 2
 BRANCH="results/$RUN_NAME"
