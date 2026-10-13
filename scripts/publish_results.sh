@@ -10,12 +10,24 @@ RUN_DIR="${1:-$(find "$ROOT/runs" -mindepth 1 -maxdepth 1 -type d | sort | tail 
 RUN_NAME="$(basename "$RUN_DIR")"
 [[ "$RUN_NAME" =~ ^[A-Za-z0-9_.-]+$ ]] || exit 2
 BRANCH="results/$RUN_NAME"
+# SSH deploy key is supported, but blocked SSH networks can push over HTTPS.
+# For HTTPS: authenticate with Git Credential Manager, gh auth login, or a PAT
+# entered interactively as the Git password. Never embed tokens in Git URLs.
 KEY="${FC_DEPLOY_KEY:-$HOME/.ssh/id_ed25519_fc_memory_lab}"
-[[ -f "$KEY" ]] || { echo "Missing deploy private key. Run scripts/setup_ssh.sh" >&2; exit 2; }
-git remote get-url origin >/dev/null || { echo 'Missing origin remote' >&2; exit 2; }
-[[ "$(git remote get-url origin)" == git@github.com:* ]] || {
-  echo 'Set origin to git@github.com:OWNER/REPO.git before using deploy key.' >&2; exit 2;
-}
+ORIGIN_URL="$(git remote get-url origin)" || { echo 'Missing origin remote' >&2; exit 2; }
+case "$ORIGIN_URL" in
+  git@github.com:*|ssh://git@github.com/*)
+    [[ -f "$KEY" ]] || { echo "Missing SSH key: $KEY" >&2; exit 2; }
+    export GIT_SSH_COMMAND="ssh -i $KEY -o IdentitiesOnly=yes"
+    ;;
+  https://github.com/*)
+    unset GIT_SSH_COMMAND || true
+    ;;
+  *)
+    echo "Unsupported origin URL: $ORIGIN_URL. Use a GitHub HTTPS or SSH origin." >&2
+    exit 2
+    ;;
+esac
 WORKTREE="$(mktemp -d)"
 cleanup() { cd "$ROOT"; git worktree remove --force "$WORKTREE" >/dev/null 2>&1 || true; rmdir "$WORKTREE" 2>/dev/null || true; }
 trap cleanup EXIT
@@ -32,5 +44,5 @@ done
 git add -f "results/$RUN_NAME"
 git -c user.name='Firecracker Experiment' -c user.email='fc-memory-lab@users.noreply.github.com' \
   commit -m "results: $RUN_NAME"
-GIT_SSH_COMMAND="ssh -i $KEY -o IdentitiesOnly=yes" git push --set-upstream origin "$BRANCH"
+git push --set-upstream origin "$BRANCH"
 printf '\nPublished: %s\n' "$BRANCH"
