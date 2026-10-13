@@ -19,7 +19,7 @@ trap 'rm -rf "$tmp"' EXIT
 url="https://raw.githubusercontent.com/kvcache-ai/AgentENV/main/scripts/install-cli.sh"
 echo "Downloading official CLI installer from $url"
 curl -fsSL --retry 3 --max-time 90 "$url" -o "$tmp/install-cli.sh"
-# Official upstream installer downloads signed release metadata and verifies asset SHA256.
+# Official upstream installer downloads GitHub release metadata and verifies asset SHA256.
 INSTALL_DIR="$INSTALL_DIR" bash "$tmp/install-cli.sh"
 export PATH="$INSTALL_DIR:$PATH"
 "$INSTALL_DIR/aenv" --help >/dev/null
