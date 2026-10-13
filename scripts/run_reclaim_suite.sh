@@ -5,15 +5,27 @@ ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT"
 PUBLISH=0
 REPEATS=1
+MODE_CSV="baseline,balloon,reporting"
 while (($#)); do
   case "$1" in
     --publish) PUBLISH=1; shift ;;
     --repeats) [[ $# -ge 2 ]] || exit 2; REPEATS="$2"; shift 2 ;;
-    --help) echo "Usage: bash scripts/run_reclaim_suite.sh [--publish] [--repeats N]"; exit 0 ;;
+    --modes) [[ $# -ge 2 ]] || exit 2; MODE_CSV="$2"; shift 2 ;;
+    --help) echo "Usage: bash scripts/run_reclaim_suite.sh [--publish] [--repeats N] [--modes balloon,reporting]"; exit 0 ;;
     *) echo "Unknown option: $1" >&2; exit 2 ;;
   esac
 done
 [[ "$REPEATS" =~ ^[1-5]$ ]] || { echo 'Select between 1 and 5 repeats' >&2; exit 2; }
+IFS=, read -r -a SELECTED_MODES <<< "$MODE_CSV"
+(( ${#SELECTED_MODES[@]} >= 1 && ${#SELECTED_MODES[@]} <= 3 )) || exit 2
+declare -A MODE_SEEN=()
+for mode in "${SELECTED_MODES[@]}"; do
+  case "$mode" in baseline|balloon|reporting) ;; *)
+    echo "Unsupported mode: $mode" >&2; exit 2 ;;
+  esac
+  [[ -z "${MODE_SEEN[$mode]:-}" ]] || { echo "Duplicate mode: $mode" >&2; exit 2; }
+  MODE_SEEN[$mode]=1
+done
 [[ -z "$(git status --porcelain --untracked-files=no)" ]] || {
   echo "Tracked changes present; commit them before benchmarking" >&2; exit 2;
 }
@@ -22,7 +34,7 @@ done
 }
 mkdir -p runs
 for ((trial=1;trial<=REPEATS;trial++)); do
-  for mode in baseline balloon reporting; do
+  for mode in "${SELECTED_MODES[@]}"; do
     echo "=== $mode / repetition $trial of $REPEATS ==="
     cfg="$(mktemp)"
     case "$mode" in
