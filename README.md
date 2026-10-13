@@ -24,28 +24,30 @@ On the **cpu-15 host** (`fyzhou@cpu-15`, not the microVM guest):
 git clone https://github.com/pe0-p1e/agentvm-memory.git ~/agentvm-memory
 cd ~/agentvm-memory
 python3 -m unittest discover -s tests -v
-./scripts/setup_ssh.sh
 ```
 
-Paste **only** the generated `.pub` key into the repository's **Settings → Deploy keys → Add deploy key**, enabling **Allow write access** if you wish to push results. Private key stays on cpu-15.
+**Recommended on networks blocking GitHub SSH 22 and 443: authenticated HTTPS.** The results uploader supports both HTTPS and SSH origins on all three experiment branches. For HTTPS:
 
 ```bash
-# Clone was initially via HTTPS; use SSH + repo-scoped deploy key for result pushes.
-git remote set-url origin git@github.com:pe0-p1e/agentvm-memory.git
-GIT_SSH_COMMAND="ssh -i $HOME/.ssh/id_ed25519_fc_memory_lab -o IdentitiesOnly=yes" \
-    git ls-remote origin HEAD
-./scripts/run_all.sh             # run without uploading
-./scripts/run_all.sh --publish   # publish completed results after reviewing public visibility
+git remote set-url origin https://github.com/pe0-p1e/agentvm-memory.git
+git config --local credential.helper 'cache --timeout=7200'
+git fetch origin
+git ls-remote origin HEAD
+./scripts/run_all.sh --publish
 ```
 
-`--publish` creates a separate `results/<run-id>` branch for each successful run; it does **not** overwrite experiment branches. The first SSH connection should verify the host fingerprint against GitHub's published fingerprints. If outbound port 22 is blocked, use the documented `ssh.github.com:443` method.
+For the first authenticated HTTPS push, Git prompts for username `pe0-p1e` and password: paste a **fine-grained personal access token** with repository access limited to `agentvm-memory` and **Contents: Read and write**. Create it at <https://github.com/settings/personal-access-tokens/new>. Do not put tokens in remote URLs, Git config, scripts, or shell commands. The `cache` helper retains the credential in memory temporarily instead of writing plaintext to disk; omit it if you prefer a prompt on every push.
+
+Alternative, when SSH is reachable: `./scripts/setup_ssh.sh`, register the public key in this repo's Deploy keys with write access, and use `git@github.com:pe0-p1e/agentvm-memory.git` as origin. Outbound SSH is **not required** for these experiments.
+
+`--publish` creates a separate `results/<run-id>` branch for each successful run; it does **not** overwrite experiment branches. The repository is public: review logs before publishing results.
 
 ## Run (on cpu-15 only)
 
 Assumes you previously built Firecracker v1.18.0-dev locally and created the Ubuntu `.ext4` image and `vmlinux-*` in `~/sandbox-study/firecracker/demo`. Stop your earlier interactive Firecracker demo before copying the rootfs. Do **not** stop any AgentENV Firecracker processes.
 
 ```bash
-cd ~/fc-agent-memory-lab
+cd ~/agentvm-memory
 ./scripts/run.sh                     # on main: untreated baseline
 ./scripts/run_all.sh                 # baseline, balloon, reporting on separate branches
 ./scripts/run_all.sh --publish       # also push each completed run to its own results/<run-id> branch
