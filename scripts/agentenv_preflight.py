@@ -45,7 +45,8 @@ def main():
     choices = [shutil.which("aenv"), str(Path.home() / ".local/bin/aenv"),
                "/usr/local/bin/aenv", "/usr/bin/aenv"]
     binary = next((x for x in choices if x and Path(x).is_file() and os.access(x, os.X_OK)), None)
-    config_present = (Path.home() / ".config/aenv/credentials").is_file()
+    config_root = Path(os.environ.get("XDG_CONFIG_HOME", str(Path.home() / ".config")))
+    config_present = (config_root / "aenv/credentials").is_file()
     report = {
         "purpose": "read_only_agentenv_preflight",
         "timestamp_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
