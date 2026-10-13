@@ -32,7 +32,7 @@ for ((trial=1;trial<=REPEATS;trial++)); do
     printf 'MODE=%s\nMEMORY_MIB=1024\nBALLOON_MIB=512\nFREE_PAGE_REPORTING=%s\n' \
       "$mode" "$reporting" > "$cfg"
     before="$(find runs -mindepth 1 -maxdepth 1 -type d -name "*-$mode-*" | sort | tail -1)"
-    if ./scripts/run.sh "$cfg"; then
+    if bash scripts/run.sh "$cfg"; then
       rm -f "$cfg"
     else
       status=$?
@@ -45,7 +45,7 @@ for ((trial=1;trial<=REPEATS;trial++)); do
       echo "Could not identify complete new run" >&2; exit 3;
     }
     if (( PUBLISH )); then
-      ./scripts/publish_results.sh "$latest"
+      bash scripts/publish_results.sh "$latest"
     fi
     rm -f -- "$latest/guest.ext4"
   done
