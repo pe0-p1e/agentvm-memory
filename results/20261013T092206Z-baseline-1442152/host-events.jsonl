@@ -1,0 +1,15 @@
+{"detail": "booting", "epoch_s": 1791883336.0800476, "event": "phase", "monotonic_s": 13653568.944789875}
+{"detail": "baseline", "epoch_s": 1791883338.164551, "event": "guest_marker_seen", "monotonic_s": 13653571.029293433}
+{"detail": "baseline", "epoch_s": 1791883338.198057, "event": "phase", "monotonic_s": 13653571.062799195}
+{"detail": "allocated", "epoch_s": 1791883350.2928038, "event": "guest_marker_seen", "monotonic_s": 13653583.15754656}
+{"detail": "allocated", "epoch_s": 1791883350.3266225, "event": "phase", "monotonic_s": 13653583.191364672}
+{"detail": "freed", "epoch_s": 1791883372.4701424, "event": "guest_marker_seen", "monotonic_s": 13653605.33488491}
+{"detail": "freed", "epoch_s": 1791883372.5039203, "event": "phase", "monotonic_s": 13653605.368662737}
+{"detail": "control_after_free", "epoch_s": 1791883384.540948, "event": "phase", "monotonic_s": 13653617.405690275}
+{"detail": "agent_reuse", "epoch_s": 1791883438.6494985, "event": "guest_marker_seen", "monotonic_s": 13653671.514240816}
+{"detail": "agent_reuse", "epoch_s": 1791883438.6841419, "event": "phase", "monotonic_s": 13653671.548884192}
+{"detail": "retouch_start", "epoch_s": 1791883438.7222571, "event": "guest_marker_seen", "monotonic_s": 13653671.58699948}
+{"detail": "retouch", "epoch_s": 1791883438.7586722, "event": "phase", "monotonic_s": 13653671.623414418}
+{"detail": "retouched", "epoch_s": 1791883438.7960079, "event": "guest_marker_seen", "monotonic_s": 13653671.660750216}
+{"detail": "retouched", "epoch_s": 1791883438.8309186, "event": "phase", "monotonic_s": 13653671.695660895}
+{"detail": "done", "epoch_s": 1791883447.9128692, "event": "guest_marker_seen", "monotonic_s": 13653680.77761172}

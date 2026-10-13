@@ -1,0 +1,52 @@
+{
+  "allocated": {
+    "balloon_actual_mib_median": 0.0,
+    "guest_available_mib_median": 339.453,
+    "guest_major_faults_median": 403.0,
+    "host_cpu_s_median": 2.5,
+    "host_pss_mib_median": 637.078,
+    "host_rss_mib_median": 637.09,
+    "host_rssanon_mib_median": 630.238,
+    "samples": 43
+  },
+  "baseline": {
+    "balloon_actual_mib_median": 0.0,
+    "guest_available_mib_median": 835.324,
+    "guest_major_faults_median": 403.0,
+    "host_cpu_s_median": 1.93,
+    "host_pss_mib_median": 140.004,
+    "host_rss_mib_median": 140.016,
+    "host_rssanon_mib_median": 133.164,
+    "samples": 23
+  },
+  "control_after_free": {
+    "balloon_actual_mib_median": 0.0,
+    "guest_available_mib_median": 811.957,
+    "guest_major_faults_median": 403.0,
+    "host_cpu_s_median": 2.63,
+    "host_pss_mib_median": 637.082,
+    "host_rss_mib_median": 637.094,
+    "host_rssanon_mib_median": 630.242,
+    "samples": 105
+  },
+  "freed": {
+    "balloon_actual_mib_median": 0.0,
+    "guest_available_mib_median": 811.953,
+    "guest_major_faults_median": 403.0,
+    "host_cpu_s_median": 2.58,
+    "host_pss_mib_median": 637.082,
+    "host_rss_mib_median": 637.094,
+    "host_rssanon_mib_median": 630.242,
+    "samples": 24
+  },
+  "retouched": {
+    "balloon_actual_mib_median": 0.0,
+    "guest_available_mib_median": 323.953,
+    "guest_major_faults_median": 403.0,
+    "host_cpu_s_median": 3.95,
+    "host_pss_mib_median": 652.516,
+    "host_rss_mib_median": 652.527,
+    "host_rssanon_mib_median": 645.676,
+    "samples": 18
+  }
+}
