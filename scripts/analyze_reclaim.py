@@ -42,6 +42,20 @@ def cpu_phase(rows,phase):
     return {"host_cpu_s":round(cpu,3),"elapsed_s":round(dt,3),
             "cpu_seconds_per_second":round(cpu/dt,3) if dt>0 else None}
 
+def phase_faults(rows,phase):
+    result={}
+    for field in ("host_minor_faults","host_major_faults",
+                  "guest_minor_faults","guest_major_faults"):
+        values=[]
+        for row in rows:
+            if row.get("sample_ok")=="1" and row.get("phase")==phase:
+                val=row.get(field)
+                if val not in ("",None):
+                    try: values.append(float(val))
+                    except ValueError: pass
+        result[field+"_delta"]=int(max(0,values[-1]-values[0])) if len(values)>=2 else None
+    return result
+
 def analyze(rows,console,events,meta,validation):
     mode=meta["mode"]
     after_phase={"baseline":"control_after_free",
@@ -104,6 +118,9 @@ def analyze(rows,console,events,meta,validation):
             "second_vs_first_touch_latency_ratio":round(second_ms/first_ms,4) if first_ms>0 else None
         },
         "host_cpu_by_phase":{p:cpu_phase(rows,p) for p in
+            ("allocated","freed","control_after_free","balloon_inflated",
+             "balloon_deflated","reporting_after_free","agent_reuse","retouch","retouched")},
+        "faults_by_phase":{p:phase_faults(rows,p) for p in
             ("allocated","freed","control_after_free","balloon_inflated",
              "balloon_deflated","reporting_after_free","agent_reuse","retouch","retouched")},
         "limitations":[
