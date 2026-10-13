@@ -1,0 +1,18 @@
+name: Reclaim Cost Benchmark Checks
+on:
+  push:
+    branches:
+      - exp/reclaim-cost-workload
+  workflow_dispatch:
+jobs:
+  static-and-unit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Python syntax
+        run: python3 -m compileall -q scripts guest tests
+      - name: Bash syntax
+        run: bash -n scripts/*.sh
+      - name: Unit tests (no Firecracker required)
+        run: python3 -m unittest discover -s tests -v
