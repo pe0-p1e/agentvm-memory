@@ -1,0 +1,18 @@
+{
+  "missing_guest_markers": [],
+  "missing_phases": [],
+  "mode": "reporting",
+  "samples_by_phase": {
+    "allocated": 43,
+    "baseline": 23,
+    "booting": 5,
+    "freed": 24,
+    "reporting_after_free": 106,
+    "retouch": 2,
+    "retouched": 16
+  },
+  "valid": true,
+  "warnings": [
+    "Free-page reporting effectiveness is not asserted: compare RSS and check guest PAGE_REPORTING"
+  ]
+}
