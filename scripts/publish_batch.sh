@@ -3,7 +3,7 @@
 set -Eeuo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT"
-BATCH_DIR="\${1:-$(find "$ROOT/runs/batches" -mindepth 1 -maxdepth 1 -type d 2>/dev/null | sort | tail -1)}"
+BATCH_DIR="${1:-$(find "$ROOT/runs/batches" -mindepth 1 -maxdepth 1 -type d 2>/dev/null | sort | tail -1)}"
 [[ -n "$BATCH_DIR" && -s "$BATCH_DIR/manifest.jsonl" ]] || {
   echo "Usage: bash scripts/publish_batch.sh <runs/batches/BATCH_ID>" >&2; exit 2;
 }
