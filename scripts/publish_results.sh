@@ -54,6 +54,21 @@ done
 git add -f "results/$RUN_NAME"
 git -c user.name='Firecracker Experiment' -c user.email='fc-memory-lab@users.noreply.github.com' \
   commit -m "results: $RUN_NAME"
-# Explicit refspec creates a dedicated immutable remote results branch.
-git push origin "HEAD:refs/heads/$BRANCH"
+# Push retries cope with intermittent Mihomo / ssh.github.com:443 disconnects.
+# The same local commit is retried; completed VM data is never re-executed.
+RETRIES="${PUBLISH_RETRIES:-4}"
+[[ "$RETRIES" =~ ^[1-6]$ ]] || { echo 'PUBLISH_RETRIES must be 1..6' >&2; exit 2; }
+published=0
+for ((attempt=1; attempt<=RETRIES; attempt++)); do
+  if git push origin "HEAD:refs/heads/$BRANCH"; then
+    published=1
+    break
+  fi
+  echo "GitHub upload attempt $attempt/$RETRIES failed for $BRANCH." >&2
+  if (( attempt < RETRIES )); then sleep $((attempt * 3)); fi
+done
+if (( ! published )); then
+  echo "Upload deferred. Original results remain at $RUN_DIR" >&2
+  exit 1
+fi
 printf '\nPublished: %s\n' "$BRANCH"
