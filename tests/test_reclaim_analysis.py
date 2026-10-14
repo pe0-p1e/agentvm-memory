@@ -49,6 +49,7 @@ class ReclaimTests(unittest.TestCase):
         self.assertEqual(r["memory"]["rss_reclaimed_mib"],509)
         self.assertTrue(r["memory"]["reached_80pct_of_512mib"])
         self.assertAlmostEqual(r["balloon_api"]["inflate_api_wall_ms"],40)
+        self.assertAlmostEqual(r["balloon_api"]["inflate_request_to_80pct_reclaim_s"],1.0)
         self.assertFalse(r["is_real_llm_agent"])
 
     def test_reject_missing_guest_results(self):
