@@ -1,0 +1,942 @@
+2026-10-14T19:33:47.065663116 [anonymous-instance:main] Running Firecracker v1.18.0-dev
+2026-10-14T19:33:47.065955824 [anonymous-instance:main] Listening on API socket ("/tmp/fcmem-1010-1598571.sock").
+2026-10-14T19:33:47.066118669 [anonymous-instance:fc_api] API server started.
+2026-10-14T19:33:47.210161849 [anonymous-instance:fc_api] The API server received a Put request on "/machine-config" with body "{\"vcpu_count\":1,\"mem_size_mib\":1024}".
+2026-10-14T19:33:47.210266408 [anonymous-instance:fc_api] The request was executed successfully. Status code: 204 No Content.
+2026-10-14T19:33:47.214955998 [anonymous-instance:fc_api] The API server received a Put request on "/boot-source" with body "{\"kernel_image_path\": \"/home/fyzhou/sandbox-study/firecracker/demo/vmlinux-6.18.51\", \"boot_args\": \"console=ttyS0 reboot=k panic=1 pci=off\"}".
+2026-10-14T19:33:47.215031301 [anonymous-instance:fc_api] The request was executed successfully. Status code: 204 No Content.
+2026-10-14T19:33:47.221323423 [anonymous-instance:fc_api] The API server received a Put request on "/drives/rootfs" with body "{\"drive_id\": \"rootfs\", \"path_on_host\": \"/home/fyzhou/agentvm-memory/runs/20261014T113346Z-balloon-1598571/guest.ext4\", \"is_root_device\": true, \"is_read_only\": false}".
+2026-10-14T19:33:47.221468667 [anonymous-instance:fc_api] The request was executed successfully. Status code: 204 No Content.
+2026-10-14T19:33:47.225114453 [anonymous-instance:fc_api] The API server received a Put request on "/balloon" with body "{\"amount_mib\":0,\"deflate_on_oom\":false,\"stats_polling_interval_s\":1,\"free_page_reporting\":false,\"free_page_hinting\":false}".
+2026-10-14T19:33:47.225224257 [anonymous-instance:fc_api] The request was executed successfully. Status code: 204 No Content.
+2026-10-14T19:33:48.004224806 [anonymous-instance:fc_api] The API server received a Put request on "/actions" with body "{\"action_type\":\"InstanceStart\"}".
+2026-10-14T19:33:48.033023319 [anonymous-instance:main] Artificially kick devices
+2026-10-14T19:33:48.033122846 [anonymous-instance:fc_vcpu 0] Requested a vCPU run with immediate_exit enabled. The operation was skipped
+2026-10-14T19:33:48.033158327 [anonymous-instance:fc_api] The request was executed successfully. Status code: 204 No Content.
+2026-10-14T19:33:48.039956980 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:33:48.040063095 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:33:48.044884443 [anonymous-instance:fc_vcpu 0] vcpu: IO write @ 0xcf8:0x4 failed: Failed to find address range.
+2026-10-14T19:33:48.044928002 [anonymous-instance:fc_vcpu 0] vcpu: IO read @ 0xcfc:0x2 failed: Failed to find address range.
+[    0.000000] Linux version 6.18.51+ (root@bd94f8fa8aad) (gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0, GNU ld (GNU Binutils for Ubuntu) 2.42) #1 SMP PREEMPT_DYNAMIC Wed Oct  7 03:28:31 UTC 2026
+[    0.000000] Command line: console=ttyS0 reboot=k panic=1 pci=off pci=off virtio_mmio.device=4K@0xc0001000:5 root=/dev/vda rw virtio_mmio.device=4K@0xc0002000:6
+[    0.000000] KASLR disabled
+[    0.000000] BIOS-provided physical RAM map:
+[    0.000000] BIOS-e820: [mem 0x0000000000000000-0x000000000009fbff] usable
+[    0.000000] BIOS-e820: [mem 0x000000000009fc00-0x00000000000fffff] reserved
+[    0.000000] BIOS-e820: [mem 0x0000000000100000-0x000000003fffffff] usable
+[    0.000000] BIOS-e820: [mem 0x00000000eec00000-0x00000000febfffff] reserved
+[    0.000000] NX (Execute Disable) protection: active
+[    0.000000] APIC: Static calls initialized
+[    0.000000] DMI not present or invalid.
+[    0.000000] Hypervisor detected: KVM
+[    0.000000] last_pfn = 0x40000 max_arch_pfn = 0x400000000
+[    0.000000] kvm-clock: Using msrs 4b564d01 and 4b564d00
+[    0.000001] kvm-clock: using sched offset of 40702395 cycles
+[    0.000003] clocksource: kvm-clock: mask: 0xffffffffffffffff max_cycles: 0x1cd42e4dffb, max_idle_ns: 881590591483 ns
+[    0.000023] tsc: Detected 2800.000 MHz processor
+[    0.000184] last_pfn = 0x40000 max_arch_pfn = 0x400000000
+[    0.000249] MTRR map: 0 entries (0 fixed + 0 variable; max 16), built from 8 variable MTRRs
+[    0.000261] x86/PAT: Configuration [0-7]: WB  WC  UC- UC  WB  WP  UC- WT  
+[    0.000360] Using GB pages for direct mapping
+[    0.000497] ACPI: Early table checksum verification disabled
+[    0.000546] ACPI: RSDP 0x00000000000E0000 000024 (v02 FIRECK)
+[    0.000564] ACPI: XSDT 0x00000000000A0135 00003C (v01 FIRECK FCMVXSDT 00000000 FCAT 20240119)
+[    0.000582] ACPI: FACP 0x000000000009FFA5 000114 (v06 FIRECK FCVMFADT 00000000 FCAT 20240119)
+[    0.000592] ACPI: DSDT 0x000000000009FD30 000275 (v02 FIRECK FCVMDSDT 00000000 FCAT 20240119)
+[    0.000599] ACPI: APIC 0x00000000000A00B9 000040 (v06 FIRECK FCVMMADT 00000000 FCAT 20240119)
+[    0.000603] ACPI: MCFG 0x00000000000A00F9 00003C (v01 FIRECK FCMVMCFG 00000000 FCAT 20240119)
+[    0.000606] ACPI: Reserving FACP table memory at [mem 0x9ffa5-0xa00b8]
+[    0.000611] ACPI: Reserving DSDT table memory at [mem 0x9fd30-0x9ffa4]
+[    0.000611] ACPI: Reserving APIC table memory at [mem 0xa00b9-0xa00f8]
+[    0.000612] ACPI: Reserving MCFG table memory at [mem 0xa00f9-0xa0134]
+[    0.000737] No NUMA configuration found
+[    0.000738] Faking a node at [mem 0x0000000000000000-0x000000003fffffff]
+[    0.000752] NODE_DATA(0) allocated [mem 0x3ffd5680-0x3fffffff]
+[    0.000984] Zone ranges:
+[    0.000988]   DMA      [mem 0x0000000000001000-0x0000000000ffffff]
+[    0.000993]   DMA32    [mem 0x0000000001000000-0x000000003fffffff]
+[    0.000994]   Normal   empty
+[    0.000998]   Device   empty
+[    0.000998] Movable zone start for each node
+[    0.001006] Early memory node ranges
+[    0.001007]   node   0: [mem 0x0000000000001000-0x000000000009efff]
+[    0.001011]   node   0: [mem 0x0000000000100000-0x000000003fffffff]
+[    0.001012] Initmem setup node 0 [mem 0x0000000000001000-0x000000003fffffff]
+[    0.001031] On node 0, zone DMA: 1 pages in unavailable ranges
+[    0.001253] On node 0, zone DMA: 97 pages in unavailable ranges
+[    0.004837] IOAPIC[0]: apic_id 0, version 17, address 0xfec00000, GSI 0-23
+[    0.004847] ACPI: Using ACPI (MADT) for SMP configuration information
+[    0.004851] TSC deadline timer available
+[    0.004855] CPU topo: Max. logical packages:   1
+[    0.004859] CPU topo: Max. logical dies:       1
+[    0.004859] CPU topo: Max. dies per package:   1
+[    0.004863] CPU topo: Max. threads per core:   1
+[    0.004864] CPU topo: Num. cores per package:     1
+[    0.004865] CPU topo: Num. threads per package:   1
+[    0.004865] CPU topo: Allowing 1 present CPUs plus 0 hotplug CPUs
+[    0.004889] kvm-guest: APIC: eoi() replaced with kvm_guest_apic_eoi_write()
+[    0.004951] PM: hibernation: Registered nosave memory: [mem 0x00000000-0x00000fff]
+[    0.004956] PM: hibernation: Registered nosave memory: [mem 0x0009f000-0x000fffff]
+[    0.004957] [mem 0x40000000-0xeebfffff] available for PCI devices
+[    0.004959] Booting paravirtualized kernel on KVM
+[    0.004962] clocksource: refined-jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 7645519600211568 ns
+[    0.004972] setup_percpu: NR_CPUS:64 nr_cpumask_bits:1 nr_cpu_ids:1 nr_node_ids:1
+[    0.006918] percpu: Embedded 44 pages/cpu s143256 r8192 d28776 u2097152
+[    0.006961] kvm-guest: PV spinlocks disabled, single CPU
+[    0.006963] Kernel command line: console=ttyS0 reboot=k panic=1 pci=off pci=off virtio_mmio.device=4K@0xc0001000:5 root=/dev/vda rw virtio_mmio.device=4K@0xc0002000:6
+[    0.007231] random: crng init done
+[    0.007232] printk: log buffer data + meta data: 131072 + 458752 = 589824 bytes
+[    0.008237] Dentry cache hash table entries: 131072 (order: 8, 1048576 bytes, linear)
+[    0.008676] Inode-cache hash table entries: 65536 (order: 7, 524288 bytes, linear)
+[    0.008741] Fallback order for Node 0: 0 
+[    0.008749] Built 1 zonelists, mobility grouping on.  Total pages: 262046
+[    0.008750] Policy zone: DMA32
+[    0.008751] mem auto-init: stack:off, heap alloc:off, heap free:off
+[    0.010017] SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=1, Nodes=1
+[    0.010731] Dynamic Preempt: none
+[    0.010792] rcu: Preemptible hierarchical RCU implementation.
+[    0.010797] rcu: 	RCU restricting CPUs from NR_CPUS=64 to nr_cpu_ids=1.
+[    0.010801] 	Trampoline variant of Tasks RCU enabled.
+[    0.010804] 	Tracing variant of Tasks RCU enabled.
+[    0.010807] rcu: RCU calculated value of scheduler-enlistment delay is 25 jiffies.
+[    0.010808] rcu: Adjusting geometry for rcu_fanout_leaf=16, nr_cpu_ids=1
+[    0.010822] RCU Tasks: Setting shift to 0 and lim to 1 rcu_task_cb_adjust=1 rcu_task_cpu_ids=1.
+[    0.010824] RCU Tasks Trace: Setting shift to 0 and lim to 1 rcu_task_cb_adjust=1 rcu_task_cpu_ids=1.
+[    0.010831] NR_IRQS: 4352, nr_irqs: 256, preallocated irqs: 0
+[    0.010894] rcu: srcu_init: Setting srcu_struct sizes based on contention.
+[    0.010899] clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 7645041785100000 ns
+[    0.011018] Console: colour dummy device 80x25
+[    0.011121] printk: legacy console [ttyS0] enabled
+[    0.085182] ACPI: Core revision 20250807
+[    0.085670] APIC: Switch to symmetric I/O mode setup
+[    0.086394] x2apic enabled
+[    0.086916] APIC: Switched APIC routing to: physical x2apic
+[    0.087573] clocksource: tsc-early: mask: 0xffffffffffffffff max_cycles: 0x285c40e2248, max_idle_ns: 440795340634 ns
+[    0.088753] Calibrating delay loop (skipped) preset value.. 5600.00 BogoMIPS (lpj=11200000)
+[    0.089799] x86/cpu: User Mode Instruction Prevention (UMIP) activated
+[    0.090547] Last level iTLB entries: 4KB 0, 2MB 0, 4MB 0
+[    0.091169] Last level dTLB entries: 4KB 0, 2MB 0, 4MB 0, 1GB 0
+[    0.091861] mitigations: Enabled attack vectors: user_kernel, user_user, SMT mitigations: auto
+[    0.092752] Speculative Store Bypass: Mitigation: Speculative Store Bypass disabled via prctl
+[    0.092752] Spectre V2 : Mitigation: Enhanced / Automatic IBRS
+[    0.092752] Spectre V1 : Mitigation: usercopy/swapgs barriers and __user pointer sanitization
+[    0.092752] Spectre V2 : Spectre v2 / PBRSB-eIBRS: Retire a single CALL on VMEXIT
+[    0.092752] Spectre V2 : mitigation: Enabling conditional Indirect Branch Prediction Barrier
+[    0.092752] x86/fpu: Supporting XSAVE feature 0x001: 'x87 floating point registers'
+[    0.092752] x86/fpu: Supporting XSAVE feature 0x002: 'SSE registers'
+[    0.092752] x86/fpu: Supporting XSAVE feature 0x004: 'AVX registers'
+[    0.092752] x86/fpu: Supporting XSAVE feature 0x020: 'AVX-512 opmask'
+[    0.092752] x86/fpu: Supporting XSAVE feature 0x040: 'AVX-512 Hi256'
+[    0.092752] x86/fpu: Supporting XSAVE feature 0x080: 'AVX-512 ZMM_Hi256'
+[    0.092752] x86/fpu: Supporting XSAVE feature 0x200: 'Protection Keys User registers'
+[    0.092752] x86/fpu: Supporting XSAVE feature 0x800: 'Control-flow User registers'
+[    0.092752] x86/fpu: Supporting XSAVE feature 0x1000: 'Control-flow Kernel registers (KVM only)'
+[    0.092752] x86/fpu: Supporting XSAVE feature 0x20000: 'AMX Tile config'
+[    0.092752] x86/fpu: Supporting XSAVE feature 0x40000: 'AMX Tile data'
+[    0.092752] x86/fpu: xstate_offset[2]:  576, xstate_sizes[2]:  256
+[    0.092752] x86/fpu: xstate_offset[5]:  832, xstate_sizes[5]:   64
+[    0.092752] x86/fpu: xstate_offset[6]:  896, xstate_sizes[6]:  512
+[    0.092752] x86/fpu: xstate_offset[7]: 1408, xstate_sizes[7]: 1024
+[    0.092752] x86/fpu: xstate_offset[9]: 2432, xstate_sizes[9]:    8
+[    0.092752] x86/fpu: xstate_offset[11]: 2440, xstate_sizes[11]:   16
+[    0.092752] x86/fpu: xstate_offset[12]: 2456, xstate_sizes[12]:   24
+[    0.092752] x86/fpu: xstate_offset[17]: 2496, xstate_sizes[17]:   64
+[    0.092752] x86/fpu: xstate_offset[18]: 2560, xstate_sizes[18]: 8192
+[    0.092752] x86/fpu: Enabled xstate features 0x61ae7, context size is 10752 bytes, using 'compacted' format.
+[    0.092752] Freeing SMP alternatives memory: 48K
+[    0.092752] pid_max: default: 32768 minimum: 301
+[    0.092752] LSM: initializing lsm=capability,landlock,selinux
+[    0.092752] landlock: Up and running.
+[    0.092752] SELinux:  Initializing.
+[    0.092752] Mount-cache hash table entries: 2048 (order: 2, 16384 bytes, linear)
+[    0.092752] Mountpoint-cache hash table entries: 2048 (order: 2, 16384 bytes, linear)
+[    0.092752] smpboot: CPU0: Intel(R) Xeon(R) Processor (family: 0x6, model: 0xcf, stepping: 0x2)
+[    0.092752] Performance Events: unsupported CPU family 6 model 207 no PMU driver, software events only.
+[    0.092752] signal: max sigframe size: 11952
+[    0.092752] rcu: Hierarchical SRCU implementation.
+[    0.092752] rcu: 	Max phase no-delay instances is 1000.
+[    0.092864] NMI watchdog: Perf NMI watchdog permanently disabled
+[    0.093575] smp: Bringing up secondary CPUs ...
+[    0.094102] smp: Brought up 1 node, 1 CPU
+[    0.094566] smpboot: Total of 1 processors activated (5600.00 BogoMIPS)
+[    0.103467] node 0 deferred pages initialised in 8ms
+[    0.104080] Memory: 1003088K/1048184K available (13961K kernel code, 1193K rwdata, 2720K rodata, 2076K init, 2704K bss, 43540K reserved, 0K cma-reserved)
+[    0.104884] devtmpfs: initialized
+[    0.105311] x86/mm: Memory block size: 128MB
+[    0.106059] posixtimers hash table entries: 512 (order: 1, 8192 bytes, linear)
+[    0.106898] futex hash table entries: 256 (16384 bytes on 1 NUMA nodes, total 16 KiB, linear).
+[    0.108125] NET: Registered PF_NETLINK/PF_ROUTE protocol family
+[    0.108787] audit: initializing netlink subsys (disabled)
+[    0.109491] thermal_sys: Registered thermal governor 'fair_share'
+[    0.109493] thermal_sys: Registered thermal governor 'step_wise'
+[    0.110189] thermal_sys: Registered thermal governor 'user_space'
+[    0.110876] audit: type=2000 audit(1791977628.076:1): state=initialized audit_enabled=0 res=1
+[    0.112539] cpuidle: using governor ladder
+[    0.112757] cpuidle: using governor menu
+[    0.113283] PCI: Fatal: No config space access function found
+[    0.117310] loading FIPS 140 Kernel Cryptographic Module
+[    0.117940] FIPS 140: run_initcalls starting
+[    0.118678] HugeTLB: registered 1.00 GiB page size, pre-allocated 0 pages
+[    0.119453] HugeTLB: 16380 KiB vmemmap can be freed for a 1.00 GiB page
+[    0.120204] HugeTLB: registered 2.00 MiB page size, pre-allocated 0 pages
+[    0.120756] HugeTLB: 28 KiB vmemmap can be freed for a 2.00 MiB page
+[    0.124806] ACPI: Added _OSI(Module Device)
+[    0.125307] ACPI: Added _OSI(Processor Device)
+[    0.125816] ACPI: Added _OSI(Processor Aggregator Device)
+[    0.126492] ACPI: 1 ACPI AML tables successfully acquired and loaded
+[    0.127254] ACPI: Interpreter enabled
+[    0.127686] ACPI: PM: (supports S0)
+[    0.128092] ACPI: Using IOAPIC for interrupt routing
+[    0.128669] PCI: Using host bridge windows from ACPI; if necessary, use "pci=nocrs" and report a bug
+[    0.128754] PCI: Using E820 reservations for host bridge windows
+[    0.129744] iommu: Default domain type: Translated
+[    0.130295] iommu: DMA domain TLB invalidation policy: lazy mode
+[    0.131068] SCSI subsystem initialized
+[    0.131514] pps_core: LinuxPPS API ver. 1 registered
+[    0.132083] pps_core: Software ver. 5.3.6 - Copyright 2005-2007 Rodolfo Giometti <giometti@linux.it>
+[    0.132756] PTP clock support registered
+[    0.133340] NetLabel: Initializing
+[    0.133738] NetLabel:  domain hash size = 128
+[    0.134241] NetLabel:  protocols = UNLABELED CIPSOv4 CALIPSO
+[    0.134892] NetLabel:  unlabeled traffic allowed by default
+[    0.135530] PCI: Using ACPI for IRQ routing
+[    0.136013] PCI: System does not support PCI
+[    0.136533] vgaarb: loaded
+[    0.136808] clocksource: Switched to clocksource kvm-clock
+[    0.137705] VFS: Disk quotas dquot_6.6.0
+[    0.138168] VFS: Dquot-cache hash table entries: 512 (order 0, 4096 bytes)
+[    0.139010] pnp: PnP ACPI init
+[    0.139416] pnp: PnP ACPI: found 2 devices
+[    0.140576] NET: Registered PF_INET protocol family
+[    0.141191] IP idents hash table entries: 16384 (order: 5, 131072 bytes, linear)
+[    0.142239] tcp_listen_portaddr_hash hash table entries: 512 (order: 1, 8192 bytes, linear)
+[    0.143196] Table-perturb hash table entries: 65536 (order: 6, 262144 bytes, linear)
+[    0.144074] TCP established hash table entries: 8192 (order: 4, 65536 bytes, linear)
+[    0.144993] TCP bind hash table entries: 8192 (order: 6, 262144 bytes, linear)
+[    0.145979] TCP: Hash tables configured (established 8192 bind 8192)
+[    0.146838] MPTCP token hash table entries: 1024 (order: 3, 24576 bytes, linear)
+[    0.147682] UDP hash table entries: 512 (order: 3, 32768 bytes, linear)
+[    0.148457] UDP-Lite hash table entries: 512 (order: 3, 32768 bytes, linear)
+[    0.149302] NET: Registered PF_UNIX/PF_LOCAL protocol family
+[    0.150108] RPC: Registered named UNIX socket transport module.
+[    0.150783] RPC: Registered udp transport module.
+[    0.151324] RPC: Registered tcp transport module.
+[    0.151862] RPC: Registered tcp-with-tls transport module.
+[    0.152485] RPC: Registered tcp NFSv4.1 backchannel transport module.
+[    0.153216] NET: Registered PF_XDP protocol family
+[    0.153766] PCI: CLS 0 bytes, default 64
+[    0.154253] Initialise system trusted keyrings
+[    0.160714] Key type asymmetric registered
+[    0.161188] Asymmetric key parser 'x509' registered
+[    0.161754] RAPL PMU: API unit is 2^-32 Joules, 1 fixed counters, 10737418240 ms ovfl timer
+[    0.162755] RAPL PMU: hw unit of domain psys 2^-0 Joules
+[    0.163369] clocksource: tsc: mask: 0xffffffffffffffff max_cycles: 0x285c40e2248, max_idle_ns: 440795340634 ns
+[    0.164536] clocksource: Switched to clocksource tsc
+[    0.165120] platform rtc_cmos: registered platform RTC device (no PNP device found)
+2026-10-14T19:33:48.260447309 [anonymous-instance:fc_vcpu 0] vcpu: IO read @ 0x87:0x1 failed: Failed to find address range.
+[    0.166338] Key type blacklist registered
+[    0.167087] workingset: timestamp_bits=36 max_order=18 bucket_order=0
+[    0.167943] squashfs: version 4.0 (2009/01/31) Phillip Lougher
+[    0.168708] NFS: Registering the id_resolver key type
+[    0.169291] Key type id_resolver registered
+[    0.169773] Key type id_legacy registered
+[    0.170261] nfs4filelayout_init: NFSv4 File Layout Driver Registering...
+[    0.171023] nfs4flexfilelayout_init: NFSv4 Flexfile Layout Driver Registering...
+[    0.171889] fuse: init (API version 7.45)
+[    0.172421] SGI XFS with ACLs, security attributes, quota, no debug enabled
+[    0.173476] Block layer SCSI generic (bsg) driver version 0.4 loaded (major 248)
+[    0.174374] io scheduler mq-deadline registered
+[    0.174898] io scheduler kyber registered
+[    0.175363] io scheduler bfq registered
+2026-10-14T19:33:48.271138148 [anonymous-instance:fc_vcpu 0] [Balloon:balloon] notifying queues
+[    0.176989] Serial: 8250/16550 driver, 1 ports, IRQ sharing disabled
+[    0.177868] 00:00: ttyS0 at I/O 0x3f8 (irq = 28, base_baud = 115200) is a 16550A
+[    0.180600] loop: module loaded
+[    0.181074] virtio_blk virtio1: 1/0/0 default/read/poll queues
+[    0.182079] virtio_blk virtio1: [vda] 2097152 512-byte logical blocks (1.07 GB/1.00 GiB)
+2026-10-14T19:33:48.277472601 [anonymous-instance:fc_vcpu 0] [Block:rootfs] notifying queues
+[    0.183446] Loading iSCSI transport class v2.0-870.
+[    0.184129] iscsi: registered transport (tcp)
+[    0.184698] tun: Universal TUN/TAP device driver, 1.6
+[    0.185374] i8042: PNP: PS/2 Controller [PNP0303:PS2] at 0x60,0x64 irq 29
+[    0.186158] i8042: PNP: PS/2 appears to have AUX port disabled, if this is incorrect please boot with i8042.nopnp
+[    0.187491] serio: i8042 KBD port at 0x60,0x64 irq 29
+[    0.188286] vmclock AMZNC10C:00: vmclock0: registered miscdev
+[    0.188954] intel_pstate: CPU model not supported
+[    0.189757] Initializing XFRM netlink socket
+[    0.190292] NET: Registered PF_INET6 protocol family
+[    0.191030] Segment Routing with IPv6
+[    0.191458] In-situ OAM (IOAM) with IPv6
+[    0.191946] NET: Registered PF_PACKET protocol family
+[    0.192530] Bridge firewalling registered
+[    0.193009] Key type dns_resolver registered
+[    0.193521] NET: Registered PF_VSOCK protocol family
+[    0.194169] Loading compiled-in X.509 certificates
+[    0.205870] FIPS 140: run_initcalls finished
+[    0.213162] IPI shorthand broadcast: enabled
+[    0.215564] sched_clock: Marking stable (136001379, 77852883)->(262746554, -48892292)
+[    0.223226] registered taskstats version 1
+[    0.227421] Demotion targets for Node 0: null
+[    0.229877] Key type .fscrypt registered
+[    0.230331] Key type fscrypt-provisioning registered
+[    0.231507] Key type encrypted registered
+[    0.232014] clk: Disabling unused clocks
+[    0.232728] check access for rdinit=/init failed: -2, ignoring
+2026-10-14T19:33:48.547058766 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:33:48.547142355 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+[    0.698618] input: AT Raw Set 2 keyboard as /devices/platform/i8042/serio0/input/input0
+[    0.702918] EXT4-fs (vda): mounted filesystem e548cd07-ad3f-4260-bda3-90aa177eb216 r/w with ordered data mode. Quota mode: none.
+[    0.706628] VFS: Mounted root (ext4 filesystem) on device 254:0.
+[    0.708764] devtmpfs: mounted
+[    0.711517] Freeing unused kernel image (initmem) memory: 2076K
+[    0.713474] Write protecting the kernel read-only data: 18432k
+[    0.716377] Freeing unused kernel image (text/rodata gap) memory: 372K
+[    0.720063] Freeing unused kernel image (rodata/data gap) memory: 1376K
+[    0.722384] Run /sbin/init as init process
+SELinux:  Could not open policy file <= /etc/selinux/targeted/policy/policy.35:  No such file or directory
+[    0.798900] systemd[1]: systemd 255.4-1ubuntu8.17 running in system mode (+PAM +AUDIT +SELINUX +APPARMOR +IMA +SMACK +SECCOMP +GCRYPT -GNUTLS +OPENSSL +ACL +BLKID +CURL +ELFUTILS +FIDO2 +IDN2 -IDN +IPTC +KMOD +LIBCRYPTSETUP +LIBFDISK +PCRE2 -PWQUALITY +P11KIT +QRENCODE +TPM2 +BZIP2 +LZ4 +XZ +ZLIB +ZSTD -BPF_FRAMEWORK -XKBCOMMON +UTMP +SYSVINIT default-hierarchy=unified)
+[    0.801029] systemd[1]: Detected virtualization kvm.
+[    0.801380] systemd[1]: Detected architecture x86-64.
+
+Welcome to [1mUbuntu 24.04.5 LTS[0m!
+
+[    0.802971] systemd[1]: Hostname set to <ubuntu-fc-uvm>.
+[    0.886665] systemd[1]: Queued start job for default target graphical.target.
+[    0.894371] systemd[1]: Created slice system-getty.slice - Slice /system/getty.
+[[0;32m  OK  [0m] Created slice [0;1;39msystem-getty.slice[0m - Slice /system/getty.
+[    0.895792] systemd[1]: Created slice system-modprobe.slice - Slice /system/modprobe.
+[[0;32m  OK  [0m] Created slice [0;1;39msystem-modprobe.slice[0m - Slice /system/modprobe.
+[    0.897198] systemd[1]: Created slice system-serial\x2dgetty.slice - Slice /system/serial-getty.
+[[0;32m  OK  [0m] Created slice [0;1;39msystem-serial\x2dget…slice[0m - Slice /system/serial-getty.
+[    0.898689] systemd[1]: Created slice user.slice - User and Session Slice.
+[[0;32m  OK  [0m] Created slice [0;1;39muser.slice[0m - User and Session Slice.
+[    0.899848] systemd[1]: Started systemd-ask-password-console.path - Dispatch Password Requests to Console Directory Watch.
+[[0;32m  OK  [0m] Started [0;1;39msystemd-ask-password-conso…[0mequests to Console Directory Watch.
+[    0.901381] systemd[1]: Started systemd-ask-password-wall.path - Forward Password Requests to Wall Directory Watch.
+[[0;32m  OK  [0m] Started [0;1;39msystemd-ask-password-wall.…[0md Requests to Wall Directory Watch.
+[    0.902965] systemd[1]: Set up automount proc-sys-fs-binfmt_misc.automount - Arbitrary Executable File Formats File System Automount Point.
+[[0;32m  OK  [0m] Set up automount [0;1;39mproc-sys-fs-binfm…[0mormats File System Automount Point.
+[    0.904582] systemd[1]: Expecting device dev-ttyS0.device - /dev/ttyS0...
+         Expecting device [0;1;39mdev-ttyS0.device[0m - /dev/ttyS0...
+[    0.905616] systemd[1]: Reached target cryptsetup.target - Local Encrypted Volumes.
+[[0;32m  OK  [0m] Reached target [0;1;39mcryptsetup.target[0m - Local Encrypted Volumes.
+[    0.906841] systemd[1]: Reached target integritysetup.target - Local Integrity Protected Volumes.
+[[0;32m  OK  [0m] Reached target [0;1;39mintegritysetup.targ…[0m Local Integrity Protected Volumes.
+[    0.908225] systemd[1]: Reached target paths.target - Path Units.
+[[0;32m  OK  [0m] Reached target [0;1;39mpaths.target[0m - Path Units.
+[    0.909228] systemd[1]: Reached target remote-fs.target - Remote File Systems.
+[[0;32m  OK  [0m] Reached target [0;1;39mremote-fs.target[0m - Remote File Systems.
+[    0.910396] systemd[1]: Reached target slices.target - Slice Units.
+[[0;32m  OK  [0m] Reached target [0;1;39mslices.target[0m - Slice Units.
+[    0.911423] systemd[1]: Reached target swap.target - Swaps.
+[[0;32m  OK  [0m] Reached target [0;1;39mswap.target[0m - Swaps.
+[    0.912359] systemd[1]: Reached target veritysetup.target - Local Verity Protected Volumes.
+[[0;32m  OK  [0m] Reached target [0;1;39mveritysetup.target[0m - Local Verity Protected Volumes.
+[    0.913717] systemd[1]: Listening on systemd-initctl.socket - initctl Compatibility Named Pipe.
+[[0;32m  OK  [0m] Listening on [0;1;39msystemd-initctl.socke…[0m- initctl Compatibility Named Pipe.
+[    0.915159] systemd[1]: Listening on systemd-journald-dev-log.socket - Journal Socket (/dev/log).
+[[0;32m  OK  [0m] Listening on [0;1;39msystemd-journald-dev-…socket[0m - Journal Socket (/dev/log).
+[    0.916577] systemd[1]: Listening on systemd-journald.socket - Journal Socket.
+[[0;32m  OK  [0m] Listening on [0;1;39msystemd-journald.socket[0m - Journal Socket.
+[    0.917747] systemd[1]: systemd-pcrextend.socket - TPM2 PCR Extension (Varlink) was skipped because of an unmet condition check (ConditionSecurity=measured-uki).
+[    0.918889] systemd[1]: Listening on systemd-udevd-control.socket - udev Control Socket.
+[[0;32m  OK  [0m] Listening on [0;1;39msystemd-udevd-control.socket[0m - udev Control Socket.
+[    0.920223] systemd[1]: Listening on systemd-udevd-kernel.socket - udev Kernel Socket.
+[[0;32m  OK  [0m] Listening on [0;1;39msystemd-udevd-kernel.socket[0m - udev Kernel Socket.
+[    0.929921] systemd[1]: Mounting dev-hugepages.mount - Huge Pages File System...
+         Mounting [0;1;39mdev-hugepages.mount[0m - Huge Pages File System...
+[    0.933998] systemd[1]: Mounting dev-mqueue.mount - POSIX Message Queue File System...
+         Mounting [0;1;39mdev-mqueue.mount[0m - POSIX Message Queue File System...
+[    0.937902] systemd[1]: Mounting sys-kernel-debug.mount - Kernel Debug File System...
+         Mounting [0;1;39msys-kernel-debug.mount[0m - Kernel Debug File System...
+[    0.941174] systemd[1]: sys-kernel-tracing.mount - Kernel Trace File System was skipped because of an unmet condition check (ConditionPathExists=/sys/kernel/tracing).
+[    0.943606] systemd[1]: Mounting tmp.mount - Temporary Directory /tmp...
+         Mounting [0;1;39mtmp.mount[0m - Temporary Directory /tmp...
+[    0.946813] systemd[1]: Mounting var-lib-systemd.mount - /var/lib/systemd...
+         Mounting [0;1;39mvar-lib-systemd.mount[0m - /var/lib/systemd...
+[    0.953848] systemd[1]: Starting systemd-journald.service - Journal Service...
+         Starting [0;1;39msystemd-journald.service[0m - Journal Service...
+[    0.955019] systemd[1]: kmod-static-nodes.service - Create List of Static Device Nodes was skipped because of an unmet condition check (ConditionFileNotEmpty=/lib/modules/6.18.51+/modules.devname).
+2026-10-14T19:33:49.054366442 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:33:49.054475904 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+[    0.961625] systemd[1]: Starting modprobe@configfs.service - Load Kernel Module configfs...
+         Starting [0;1;39mmodprobe@configfs.service[0m - Load Kernel Module configfs...
+[    0.965948] systemd[1]: Starting modprobe@dm_mod.service - Load Kernel Module dm_mod...
+         Starting [0;1;39mmodprobe@dm_mod.service[0m - Load Kernel Module dm_mod...
+[    0.970145] systemd-journald[624]: Collecting audit messages is disabled.
+[    0.975622] systemd[1]: Starting modprobe@drm.service - Load Kernel Module drm...
+         Starting [0;1;39mmodprobe@drm.service[0m - Load Kernel Module drm...
+[    0.980786] systemd[1]: Starting modprobe@efi_pstore.service - Load Kernel Module efi_pstore...
+         Starting [0;1;39mmodprobe@efi_pstore.servi…[0m - Load Kernel Module efi_pstore...
+[    0.983691] systemd[1]: Starting modprobe@fuse.service - Load Kernel Module fuse...
+         Starting [0;1;39mmodprobe@fuse.service[0m - Load Kernel Module fuse...
+[    0.988064] systemd[1]: Starting modprobe@loop.service - Load Kernel Module loop...
+         Starting [0;1;39mmodprobe@loop.service[0m - Load Kernel Module loop...
+[    0.994901] systemd[1]: Starting systemd-modules-load.service - Load Kernel Modules...
+         Starting [0;1;39msystemd-modules-load.service[0m - Load Kernel Modules...
+[    0.996556] systemd[1]: systemd-pcrmachine.service - TPM2 PCR Machine ID Measurement was skipped because of an unmet condition check (ConditionSecurity=measured-uki).
+[    1.002170] systemd[1]: Starting systemd-remount-fs.service - Remount Root and Kernel File Systems...
+         Starting [0;1;39msystemd-remount-fs.servic…[0munt Root and Kernel File Systems...
+[    1.009078] systemd[1]: Starting systemd-tmpfiles-setup-dev-early.service - Create Static Device Nodes in /dev gracefully...
+         Starting [0;1;39msystemd-tmpfiles-setup-de…[0m Device Nodes in /dev gracefully...
+[    1.010635] systemd[1]: systemd-tpm2-setup-early.service - TPM2 SRK Setup (Early) was skipped because of an unmet condition check (ConditionSecurity=measured-uki).
+[    1.014270] systemd[1]: Starting systemd-udev-trigger.service - Coldplug All udev Devices...
+         Starting [0;1;39msystemd-udev-trigger.service[0m - Coldplug All udev Devices...
+[    1.018253] systemd[1]: Started systemd-journald.service - Journal Service.
+[[0;32m  OK  [0m] Started [0;1;39msystemd-journald.service[0m - Journal Service.
+[[0;32m  OK  [0m] Mounted [0;1;39mdev-hugepages.mount[0m - Huge Pages File System.
+[[0;32m  OK  [0m] Mounted [0;1;39mdev-mqueue.mount[0m - POSIX Message Queue File System.
+[[0;32m  OK  [0m] Mounted [0;1;39msys-kernel-debug.mount[0m - Kernel Debug File System.
+[[0;32m  OK  [0m] Mounted [0;1;39mtmp.mount[0m - Temporary Directory /tmp.
+[[0;32m  OK  [0m] Mounted [0;1;39mvar-lib-systemd.mount[0m - /var/lib/systemd.
+[[0;32m  OK  [0m] Finished [0;1;39mmodprobe@configfs.service[0m - Load Kernel Module configfs.
+[[0;32m  OK  [0m] Finished [0;1;39mmodprobe@dm_mod.service[0m - Load Kernel Module dm_mod.
+[[0;32m  OK  [0m] Finished [0;1;39mmodprobe@drm.service[0m - Load Kernel Module drm.
+[[0;32m  OK  [0m] Finished [0;1;39mmodprobe@efi_pstore.service[0m - Load Kernel Module efi_pstore.
+[[0;32m  OK  [0m] Finished [0;1;39mmodprobe@fuse.service[0m - Load Kernel Module fuse.
+[[0;32m  OK  [0m] Finished [0;1;39mmodprobe@loop.service[0m - Load Kernel Module loop.
+[[0;32m  OK  [0m] Finished [0;1;39msystemd-modules-load.service[0m - Load Kernel Modules.
+[[0;32m  OK  [0m] Finished [0;1;39msystemd-remount-fs.servic…[0mmount Root and Kernel File Systems.
+[[0;32m  OK  [0m] Finished [0;1;39msystemd-tmpfiles-setup-de…[0mic Device Nodes in /dev gracefully.
+         Mounting [0;1;39msys-fs-fuse-connections.mount[0m - FUSE Control File System...
+         Starting [0;1;39msystemd-journal-flush.ser…[0msh Journal to Persistent Storage...
+         Starting [0;1;39msystemd-random-seed.service[0m - Load/Save OS Random Seed...
+         Starting [0;1;39msystemd-sysctl.service[0m - Apply Kernel Variables...
+[    1.067725] systemd-journald[624]: Received client request to flush runtime journal.
+         Starting [0;1;39msystemd-tmpfiles-setup-de…[0meate Static Device Nodes in /dev...
+[[0;32m  OK  [0m] Finished [0;1;39msystemd-udev-trigger.service[0m - Coldplug All udev Devices.
+[[0;32m  OK  [0m] Mounted [0;1;39msys-fs-fuse-connections.mount[0m - FUSE Control File System.
+[[0;32m  OK  [0m] Finished [0;1;39msystemd-journal-flush.ser…[0mlush Journal to Persistent Storage.
+[[0;32m  OK  [0m] Finished [0;1;39msystemd-random-seed.service[0m - Load/Save OS Random Seed.
+[[0;32m  OK  [0m] Finished [0;1;39msystemd-sysctl.service[0m - Apply Kernel Variables.
+[[0;32m  OK  [0m] Finished [0;1;39msystemd-tmpfiles-setup-de…[0mCreate Static Device Nodes in /dev.
+[[0;32m  OK  [0m] Reached target [0;1;39mlocal-fs-pre.target[0m…Preparation for Local File Systems.
+[[0;32m  OK  [0m] Reached target [0;1;39mlocal-fs.target[0m - Local File Systems.
+[[0;32m  OK  [0m] Listening on [0;1;39msystemd-sysext.socket[0m…tension Image Management (Varlink).
+         Starting [0;1;39msystemd-binfmt.service[0m - Set Up Additional Binary Formats...
+         Starting [0;1;39msystemd-tmpfiles-setup.se…[0me Volatile Files and Directories...
+         Starting [0;1;39msystemd-udevd.service[0m - R…ager for Device Events and Files...
+         Mounting [0;1;39mproc-sys-fs-binfmt_misc.m…[0mcutable File Formats File System...
+[[0;32m  OK  [0m] Finished [0;1;39msystemd-tmpfiles-setup.se…[0mate Volatile Files and Directories.
+         Starting [0;1;39msystemd-update-utmp.servi…[0mord System Boot/Shutdown in UTMP...
+[[0;32m  OK  [0m] Mounted [0;1;39mproc-sys-fs-binfmt_misc.mo…[0mxecutable File Formats File System.
+[[0;32m  OK  [0m] Finished [0;1;39msystemd-binfmt.service[0m - Set Up Additional Binary Formats.
+[[0;32m  OK  [0m] Finished [0;1;39msystemd-update-utmp.servi…[0mecord System Boot/Shutdown in UTMP.
+[[0;32m  OK  [0m] Started [0;1;39msystemd-udevd.service[0m - Ru…anager for Device Events and Files.
+[[0;32m  OK  [0m] Reached target [0;1;39msysinit.target[0m - System Initialization.
+[[0;32m  OK  [0m] Started [0;1;39msystemd-tmpfiles-clean.tim…[0my Cleanup of Temporary Directories.
+[[0;32m  OK  [0m] Reached target [0;1;39mtimers.target[0m - Timer Units.
+[[0;32m  OK  [0m] Listening on [0;1;39mssh.socket[0m - OpenBSD Secure Shell server socket.
+[[0;32m  OK  [0m] Reached target [0;1;39msockets.target[0m - Socket Units.
+[[0;32m  OK  [0m] Reached target [0;1;39mbasic.target[0m - Basic System.
+         Starting [0;1;39mfc-memory.service[0m - Firec…r isolated guest memory workload...
+         Starting [0;1;39mfcnet.service[0m...
+         Starting [0;1;39mgetty-static.service[0m - ge…bus and logind are not available...
+         Starting [0;1;39msystemd-user-sessions.service[0m - Permit User Sessions...
+[[0;32m  OK  [0m] Found device [0;1;39mdev-ttyS0.device[0m - /dev/ttyS0.
+[[0;32m  OK  [0m] Finished [0;1;39msystemd-user-sessions.service[0m - Permit User Sessions.
+[[0;32m  OK  [0m] Started [0;1;39mgetty@tty1.service[0m - Getty on tty1.
+[[0;32m  OK  [0m] Started [0;1;39mserial-getty@ttyS0.service[0m - Serial Getty on ttyS0.
+[[0;32m  OK  [0m] Started [0;1;39mgetty@tty2.service[0m - Getty on tty2.
+[[0;32m  OK  [0m] Started [0;1;39mgetty@tty3.service[0m - Getty on tty3.
+[[0;32m  OK  [0m] Started [0;1;39mgetty@tty4.service[0m - Getty on tty4.
+[[0;32m  OK  [0m] Started [0;1;39mgetty@tty5.service[0m - Getty on tty5.
+[[0;32m  OK  [0m] Finished [0;1;39mfcnet.service[0m.
+[[0;32m  OK  [0m] Started [0;1;39mgetty@tty6.service[0m - Getty on tty6.
+[[0;32m  OK  [0m] Finished [0;1;39mgetty-static.service[0m - ge… dbus and logind are not available.
+[[0;32m  OK  [0m] Reached target [0;1;39mgetty.target[0m - Login Prompts.
+FCMEM_STAGE:baseline
+2026-10-14T19:33:49.564448191 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:33:49.564548479 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:33:50.073538799 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:33:50.073612765 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:33:50.584008347 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:33:50.584093586 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:33:51.095047167 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:33:51.095183336 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:33:51.606194301 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:33:51.606316999 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:33:52.116701793 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:33:52.116812042 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:33:52.626354437 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:33:52.626472952 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+FCMEM_AGENT_JSON:{"child_cpu_s": 0.6497, "child_major_faults": 0, "child_minor_faults": 34514, "episodes": 6, "label": "before_allocation", "latency_max_ms": 243.977, "latency_median_ms": 86.595, "latency_ms": [243.977, 93.488, 86.517, 86.271, 86.06, 86.674], "llm_inference": false, "success": true, "workload": "deterministic_code_repair_tool_replay"}
+2026-10-14T19:33:53.136381305 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:33:53.136462957 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:33:53.644954602 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:33:53.645027617 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:33:54.154307840 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:33:54.154385342 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+
+Ubuntu 24.04.5 LTS ubuntu-fc-uvm ttyS0
+
+ubuntu-fc-uvm login: root (automatic login)
+
+Welcome to Ubuntu 24.04.5 LTS (GNU/Linux 6.18.51+ x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/pro
+
+This system has been minimized by removing packages and content that are
+not required on a system that users do not log into.
+
+To restore this content, you can run the 'unminimize' command.
+root@ubuntu-fc-uvm:~# 2026-10-14T19:33:54.662798348 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:33:54.662894067 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:33:55.171843530 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:33:55.171919749 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:33:55.682321107 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:33:55.682392230 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:33:56.191298037 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:33:56.191378546 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:33:56.699768611 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:33:56.699839823 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:33:57.208794023 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:33:57.208887416 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:33:57.718104739 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:33:57.718178675 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:33:58.226485758 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:33:58.226559807 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:33:58.735312208 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:33:58.735384783 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:33:59.243954739 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:33:59.244027411 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:33:59.752231668 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:33:59.752313224 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:00.260988219 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:00.261063314 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:00.769295962 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:00.769405778 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:01.280770303 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:01.280840755 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+FCMEM_RETOUCH_JSON:{"label": "first_touch", "latency_ms": 533.487, "mib": 512}
+FCMEM_STAGE:allocated
+2026-10-14T19:34:01.800748028 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:01.800807433 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:02.320238133 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:02.320341657 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:02.835753481 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:02.835838260 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:03.351126489 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:03.351196308 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:03.866797885 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:03.866863871 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:04.382095843 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:04.382161696 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:04.896605195 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:04.896671766 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:05.412367308 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:05.412483274 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:05.928162780 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:05.928279004 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:06.443472900 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:06.443610479 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:06.959029040 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:06.959136759 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:07.474376610 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:07.474483723 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:07.990427966 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:07.990539495 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:08.506131972 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:08.506236671 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:09.021144324 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:09.021255424 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:09.537013252 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:09.537121384 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:10.051933607 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:10.052035052 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:10.567324622 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:10.567428571 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:11.082391187 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:11.082494044 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:11.596946379 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:11.597048875 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:12.112217639 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:12.112345043 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:12.623509399 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:12.623604195 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:13.138139280 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:13.138251046 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:13.652601937 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:13.652677806 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:14.166889233 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:14.166960821 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:14.681213488 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:14.681336913 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:15.195530289 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:15.195601962 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:15.710328491 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:15.710399501 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:16.226117958 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:16.226274726 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:16.741474553 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:16.741569671 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:17.256152960 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:17.256227082 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:17.771126699 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:17.771202008 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:18.286054794 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:18.286136763 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:18.800458253 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:18.800527977 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:19.314828216 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:19.314896344 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:19.829326651 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:19.829400873 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:20.343814890 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:20.343888104 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:20.858079203 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:20.858147452 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:21.372532097 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:21.372615419 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:21.887187885 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:21.887273972 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:22.402295812 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:22.402388216 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:22.917346903 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:22.917421809 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:23.431812529 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:23.431885174 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+FCMEM_STAGE:freed
+2026-10-14T19:34:23.946275208 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:23.946352089 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:24.460852064 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:24.460933133 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:24.975097170 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:24.975169732 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:25.489351005 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:25.489422281 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:26.003682556 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:26.003755861 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:26.517995985 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:26.518065533 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:27.032771364 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:27.032842029 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:27.547135742 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:27.547210041 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:28.061899035 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:28.061967168 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:28.577043331 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:28.577112096 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:29.091344892 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:29.091411622 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:29.606128990 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:29.606193819 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:30.119996759 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:30.120062359 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:30.634891047 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:30.634958561 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:31.149042834 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:31.149108978 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:31.663265671 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:31.663334830 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:32.177459107 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:32.177530963 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:32.692148247 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:32.692230886 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:33.207237866 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:33.207306403 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:33.722058415 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:33.722129236 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:34.236181081 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:34.236248323 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:34.750236485 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:34.750303684 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:35.264415341 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:35.264483430 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:35.780288284 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:35.780392448 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:36.295580931 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:36.295685650 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:36.456789758 [anonymous-instance:fc_api] The API server received a Patch request on "/balloon" with body "{\"amount_mib\":512}".
+2026-10-14T19:34:36.456904757 [anonymous-instance:fc_api] The request was executed successfully. Status code: 204 No Content.
+2026-10-14T19:34:36.808706077 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:36.809250094 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:37.319183972 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:37.319295264 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:37.829010132 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:37.829115543 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:38.338068979 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:38.338168861 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:38.847927708 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:38.848034905 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:39.357160476 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:39.357276589 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:39.866148778 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:39.866246344 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:40.375317391 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:40.375418569 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:40.884198915 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:40.884307984 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:41.396891413 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:41.396990707 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:41.906420944 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:41.906528266 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:42.415609024 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:42.415711748 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:42.924629130 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:42.924727805 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:43.434257644 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:43.434377540 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:43.943364953 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:43.943467561 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:44.452378889 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:44.452483795 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:44.961757992 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:44.961856885 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:45.470855713 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:45.470960121 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:45.979890287 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:45.979991240 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:46.488983268 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:46.489085787 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:46.998083604 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:46.998187346 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:47.507212322 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:47.507333916 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:48.016516283 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:48.016629912 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:48.526286697 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:48.526394341 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:49.036178515 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:49.036289454 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:49.546089908 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:49.546188928 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:50.056296597 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:50.056400287 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:50.566355991 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:50.566456847 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:51.075406720 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:51.075509988 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:51.585064550 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:51.585185003 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:52.094257227 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:52.094389979 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:52.602403732 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:52.602507951 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:53.112696310 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:53.112782919 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:53.623421493 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:53.623494556 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:54.132429402 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:54.132504607 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:54.641055725 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:54.641144755 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:55.149842289 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:55.149913852 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:55.658794702 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:55.658863022 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:56.168200518 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:56.168296927 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:56.569937204 [anonymous-instance:fc_api] The API server received a Patch request on "/balloon" with body "{\"amount_mib\":0}".
+2026-10-14T19:34:56.570099969 [anonymous-instance:fc_api] The request was executed successfully. Status code: 204 No Content.
+2026-10-14T19:34:56.677390365 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:56.677463071 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:57.187254018 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:57.187335801 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:57.696096349 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:57.696169044 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:58.204753421 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:58.204826289 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:58.713698244 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:58.713771666 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:59.223175514 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:59.223247091 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:34:59.731915609 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:34:59.731982425 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:00.240760046 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:00.240866189 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:00.749443784 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:00.749513855 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:01.258814316 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:01.258887511 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:01.767855188 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:01.767925943 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:02.276944542 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:02.277010941 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:02.785622452 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:02.785692447 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:03.294452176 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:03.294539178 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:03.803856887 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:03.803925703 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:04.312675727 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:04.312743450 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:04.821396879 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:04.821464113 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:05.330072682 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:05.330139202 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:05.838737607 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:05.838807708 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:06.347656007 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:06.347731612 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:06.856300623 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:06.856372546 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:07.365061202 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:07.365126621 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:07.873778790 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:07.873844067 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:08.382313662 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:08.382382599 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:08.891738398 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:08.891828028 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:09.402033230 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:09.402111116 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:09.911026959 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:09.911095851 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:10.419713323 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:10.419781962 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:10.928473509 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:10.928540774 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:11.437174637 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:11.437248056 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:11.945892275 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:11.945964248 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:12.456146220 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:12.456209966 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:12.966784635 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:12.966887071 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:13.476204691 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:13.476304460 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:13.986283173 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:13.986391326 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:14.495400031 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:14.495504050 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:15.004484843 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:15.004588949 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:15.513505964 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:15.513604296 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:16.023212225 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:16.023331822 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:16.532446387 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:16.532552676 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:17.041705742 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:17.041804018 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:17.550811215 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:17.550912857 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:18.059827859 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:18.059933543 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:18.570015854 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:18.570118361 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:19.079368791 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:19.079489191 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:19.589278477 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:19.589384943 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:20.098103678 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:20.098204406 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:20.607242117 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:20.607356940 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:21.117036641 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:21.117153939 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:21.627624975 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:21.627716120 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:22.137131898 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:22.137210067 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:22.646098884 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:22.646172109 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:23.155925330 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:23.156005885 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:23.665254775 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:23.665342007 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:24.174155659 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:24.174223801 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:24.683094814 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:24.683176249 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:25.192883734 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:25.192956296 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:25.702309937 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:25.702379939 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:26.211975626 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:26.212048484 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:26.720995231 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:26.721065866 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:27.229867422 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:27.229933481 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:27.738792778 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:27.738863554 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:28.247835250 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:28.247903215 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:28.756805965 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:28.756872957 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:29.266166695 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:29.266231819 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+FCMEM_STAGE:agent_reuse
+2026-10-14T19:35:29.775787127 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:29.775857671 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:30.284619171 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:30.284687825 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:30.793400109 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:30.793471652 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:31.302760867 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:31.302829360 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:31.811846599 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:31.811916784 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:32.320794155 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:32.320859427 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+FCMEM_AGENT_JSON:{"child_cpu_s": 0.6072, "child_major_faults": 0, "child_minor_faults": 34519, "episodes": 6, "label": "after_reclaim", "latency_max_ms": 198.141, "latency_median_ms": 86.356, "latency_ms": [198.141, 88.048, 86.223, 85.232, 86.489, 85.092], "llm_inference": false, "success": true, "workload": "deterministic_code_repair_tool_replay"}
+FCMEM_STAGE:retouch_start
+2026-10-14T19:35:32.829974004 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:32.830043321 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:33.339170104 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:33.339234337 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:33.847990411 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:33.848055760 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:34.356849484 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:34.356914631 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:34.865889045 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:34.865970391 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:35.375914256 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:35.375985670 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+FCMEM_RETOUCH_JSON:{"label": "second_touch", "latency_ms": 534.343, "mib": 512}
+FCMEM_STAGE:retouched
+2026-10-14T19:35:35.895481715 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:35.895546350 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:36.414754844 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:36.414829013 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:36.930169826 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:36.930235359 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:37.445274340 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:37.445343115 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:37.960183325 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:37.960248040 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:38.475033670 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:38.475102048 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+FCMEM_AGENT_JSON:{"child_cpu_s": 0.616, "child_major_faults": 0, "child_minor_faults": 34513, "episodes": 6, "label": "after_retouch", "latency_max_ms": 200.741, "latency_median_ms": 86.659, "latency_ms": [200.741, 95.194, 86.277, 86.572, 85.422, 86.746], "llm_inference": false, "success": true, "workload": "deterministic_code_repair_tool_replay"}
+2026-10-14T19:35:38.989979615 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:38.990053490 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:39.504637205 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:39.504703564 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:40.020596981 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:40.020670103 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:40.536311401 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:40.536437244 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:41.052581630 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:41.052675447 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:41.568236635 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:41.568350783 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:42.083352446 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:42.083427455 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:42.597983155 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:42.598050191 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:43.112545687 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:43.112614113 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:43.627654129 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:43.627722366 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:44.142071472 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:44.142141436 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:44.656930812 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:44.656998900 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:45.171872621 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:45.171943393 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:45.686192714 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:45.686271823 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:46.201098813 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:46.201214898 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:46.715942495 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:46.716032408 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+FCMEM_STAGE:done
+2026-10-14T19:35:47.230411199 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:47.230523190 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
+2026-10-14T19:35:47.746012115 [anonymous-instance:fc_api] The API server received a Get request on "/balloon/statistics".
+2026-10-14T19:35:47.746084828 [anonymous-instance:fc_api] The request was executed successfully. Status code: 200 OK.
