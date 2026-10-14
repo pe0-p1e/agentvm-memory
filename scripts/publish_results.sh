@@ -37,6 +37,13 @@ case "$ORIGIN_URL" in
     exit 2
     ;;
 esac
+# Avoid re-publishing already uploaded runs when a batch is retried.
+# A failed ls-remote is not treated as proof that the branch is absent.
+remote_ref="$(git ls-remote --heads origin "refs/heads/$BRANCH" 2>/dev/null || true)"
+if [[ -n "$remote_ref" ]]; then
+  echo "Already published: $BRANCH; skipping"
+  exit 0
+fi
 WORKTREE="$(mktemp -d)"
 cleanup() { cd "$ROOT"; git worktree remove --force "$WORKTREE" >/dev/null 2>&1 || true; rmdir "$WORKTREE" 2>/dev/null || true; }
 trap cleanup EXIT
