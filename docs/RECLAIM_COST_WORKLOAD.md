@@ -45,12 +45,33 @@ for f in runs/*/reclaim.json; do
 done
 ~~~
 
-If logs are safe to disclose, publish successful runs with the existing
-script, or rerun a series directly with:
+For the full 5-trial design, keep execution independent of unstable GitHub SSH:
 
 ~~~bash
-bash scripts/run_reclaim_suite.sh --publish --repeats 5
+bash scripts/run_reclaim_suite.sh --repeats 5 |& tee ~/reclaim-v2-repeat5.log
 ~~~
+
+The suite records completed runs in a new `runs/batches/<batch_id>/manifest.jsonl`
+and writes `aggregate.json` after every successful VM run. If a GitHub push
+fails, completed runs remain on disk and **must not be rerun simply to retry
+publishing**.
+
+When the proxy is stable and logs have been checked for secrets, publish the
+latest batch without running any VMs:
+
+~~~bash
+bash scripts/publish_batch.sh
+~~~
+
+To publish a specific batch, pass its path to `publish_batch.sh`.
+A transient SSH failure is retried up to four times for the same result
+commit (`PUBLISH_RETRIES=1..6`). Publishing may still fail; retry later.
+`--publish` is also supported during the experiment suite, but an upload
+failure now prints a warning and **does not terminate the next VM trial**.
+
+If an older run was completed under a previous code version, publish it
+separately with `bash scripts/publish_results.sh runs/<run_id>`, and do
+not merge that historical run into the current batch's statistical summary.
 
 The script removes only the **newly copied disposable rootfs** after
 successful runs (to save space), leaving metrics and logs intact.
