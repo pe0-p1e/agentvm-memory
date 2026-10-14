@@ -1,0 +1,202 @@
+{
+  "agent_tool_replay": {
+    "after_reclaim_vs_before_latency_ratio": 1.0031,
+    "phases": {
+      "after_reclaim": {
+        "child_cpu_s": 0.6162,
+        "child_major_faults": 0,
+        "child_minor_faults": 34517,
+        "episodes": 6,
+        "label": "after_reclaim",
+        "latency_max_ms": 194.99,
+        "latency_median_ms": 88.067,
+        "latency_ms": [
+          194.99,
+          96.038,
+          87.727,
+          87.994,
+          88.14,
+          87.919
+        ],
+        "llm_inference": false,
+        "success": true,
+        "workload": "deterministic_code_repair_tool_replay"
+      },
+      "after_retouch": {
+        "child_cpu_s": 0.6088,
+        "child_major_faults": 0,
+        "child_minor_faults": 34519,
+        "episodes": 6,
+        "label": "after_retouch",
+        "latency_max_ms": 195.433,
+        "latency_median_ms": 87.81,
+        "latency_ms": [
+          195.433,
+          87.817,
+          87.931,
+          87.735,
+          87.802,
+          87.494
+        ],
+        "llm_inference": false,
+        "success": true,
+        "workload": "deterministic_code_repair_tool_replay"
+      },
+      "before_allocation": {
+        "child_cpu_s": 0.6181,
+        "child_major_faults": 0,
+        "child_minor_faults": 34518,
+        "episodes": 6,
+        "label": "before_allocation",
+        "latency_max_ms": 210.165,
+        "latency_median_ms": 87.795,
+        "latency_ms": [
+          210.165,
+          86.926,
+          87.99,
+          87.757,
+          87.426,
+          87.834
+        ],
+        "llm_inference": false,
+        "success": true,
+        "workload": "deterministic_code_repair_tool_replay"
+      }
+    }
+  },
+  "balloon_api": {
+    "deflate_api_wall_ms": null,
+    "inflate_api_wall_ms": null
+  },
+  "faults_by_phase": {
+    "agent_reuse": {
+      "guest_major_faults_delta": 0,
+      "guest_minor_faults_delta": 1224,
+      "host_major_faults_delta": 0,
+      "host_minor_faults_delta": 2
+    },
+    "allocated": {
+      "guest_major_faults_delta": 0,
+      "guest_minor_faults_delta": 0,
+      "host_major_faults_delta": 0,
+      "host_minor_faults_delta": 1
+    },
+    "balloon_deflated": {
+      "guest_major_faults_delta": null,
+      "guest_minor_faults_delta": null,
+      "host_major_faults_delta": null,
+      "host_minor_faults_delta": null
+    },
+    "balloon_inflated": {
+      "guest_major_faults_delta": null,
+      "guest_minor_faults_delta": null,
+      "host_major_faults_delta": null,
+      "host_minor_faults_delta": null
+    },
+    "control_after_free": {
+      "guest_major_faults_delta": null,
+      "guest_minor_faults_delta": null,
+      "host_major_faults_delta": null,
+      "host_minor_faults_delta": null
+    },
+    "freed": {
+      "guest_major_faults_delta": 0,
+      "guest_minor_faults_delta": 0,
+      "host_major_faults_delta": 0,
+      "host_minor_faults_delta": 0
+    },
+    "reporting_after_free": {
+      "guest_major_faults_delta": 0,
+      "guest_minor_faults_delta": 1,
+      "host_major_faults_delta": 0,
+      "host_minor_faults_delta": 0
+    },
+    "retouch": {
+      "guest_major_faults_delta": 0,
+      "guest_minor_faults_delta": 0,
+      "host_major_faults_delta": 0,
+      "host_minor_faults_delta": 116227
+    },
+    "retouched": {
+      "guest_major_faults_delta": 1,
+      "guest_minor_faults_delta": 35705,
+      "host_major_faults_delta": 0,
+      "host_minor_faults_delta": 1896
+    }
+  },
+  "guest_reporting_boot_confirmed": true,
+  "host_cpu_by_phase": {
+    "agent_reuse": {
+      "cpu_seconds_per_second": 0.247,
+      "elapsed_s": 2.546,
+      "host_cpu_s": 0.63
+    },
+    "allocated": {
+      "cpu_seconds_per_second": 0.004,
+      "elapsed_s": 21.606,
+      "host_cpu_s": 0.09
+    },
+    "balloon_deflated": null,
+    "balloon_inflated": null,
+    "control_after_free": null,
+    "freed": {
+      "cpu_seconds_per_second": 0.008,
+      "elapsed_s": 11.737,
+      "host_cpu_s": 0.09
+    },
+    "reporting_after_free": {
+      "cpu_seconds_per_second": 0.001,
+      "elapsed_s": 53.479,
+      "host_cpu_s": 0.07
+    },
+    "retouch": {
+      "cpu_seconds_per_second": 0.199,
+      "elapsed_s": 2.562,
+      "host_cpu_s": 0.51
+    },
+    "retouched": {
+      "cpu_seconds_per_second": 0.067,
+      "elapsed_s": 10.805,
+      "host_cpu_s": 0.72
+    }
+  },
+  "is_real_llm_agent": false,
+  "limitations": [
+    "One trial per condition unless the suite is repeated.",
+    "Free-to-reclaim delay includes intentional host policy wait; request-to-reclaim is separate.",
+    "The console marker is polled once per second, and host metrics twice per second.",
+    "Tool replay is real subprocess/file I/O but uses deterministic planning, not a live LLM agent.",
+    "Reporting capability confirmation comes from Guest boot log."
+  ],
+  "memory": {
+    "free_observation_to_80pct_reclaim_s": 3.626,
+    "pss_after_reclaim_mib": 183.188,
+    "pss_allocated_mib": 637.185,
+    "pss_reclaimed_mib": 453.997,
+    "reached_80pct_of_512mib": true,
+    "rss_after_reclaim_mib": 183.199,
+    "rss_after_retouch_mib": 644.602,
+    "rss_allocated_mib": 637.195,
+    "rss_reclaimed_mib": 453.996
+  },
+  "memory_touch": {
+    "phases": {
+      "first_touch": {
+        "label": "first_touch",
+        "latency_ms": 532.376,
+        "mib": 512
+      },
+      "second_touch": {
+        "label": "second_touch",
+        "latency_ms": 497.123,
+        "mib": 512
+      }
+    },
+    "second_vs_first_touch_latency_ratio": 0.9338
+  },
+  "mode": "reporting",
+  "sampling_interval_s": 0.5,
+  "source_commit": "be61bb19d1ab0cf0e899b095f0a289515910b64b",
+  "valid": true,
+  "workload_type": "deterministic_code_repair_tool_replay"
+}
