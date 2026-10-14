@@ -33,7 +33,7 @@ done
   echo "Switch to exp/reclaim-cost-workload first" >&2; exit 2;
 }
 mkdir -p runs
-BATCH_ID="$(date -u +%Y%m%dT%H%M%SZ)-reclaim-$"
+BATCH_ID="$(date -u +%Y%m%dT%H%M%SZ)-reclaim-$$"
 BATCH_DIR="$ROOT/runs/batches/$BATCH_ID"
 mkdir -p "$BATCH_DIR"
 MANIFEST="$BATCH_DIR/manifest.jsonl"
