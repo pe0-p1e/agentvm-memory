@@ -52,13 +52,16 @@ def main():
         # wait for free-page reporting; 66 s > host's 12+20+20s control period.
         time.sleep(66)
         mark("agent_reuse")
+        time.sleep(2.5)  # Host can now sample the replay phase
         emit("AGENT", run("after_reclaim"))
         mark("retouch_start")
+        time.sleep(2.5)  # Host can now sample the pre-touch phase
         mm2 = allocate()
         second_ms = touch(mm2)
         emit("RETOUCH", {"label": "second_touch", "mib": 512,
                          "latency_ms": second_ms})
         mark("retouched")
+        time.sleep(2.5)  # Host can now sample the post-touch phase
         emit("AGENT", run("after_retouch"))
         time.sleep(8)
         mm2.close()

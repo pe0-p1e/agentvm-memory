@@ -86,6 +86,15 @@ def analyze(rows,console,events,meta,validation):
                     first=float(r["epoch_s"]);break
             except (ValueError,KeyError,TypeError):pass
     delays={}
+    inflate_request=timestamp(events,"balloon_inflate_before")
+    inflate_reply=timestamp(events,"balloon_inflate_after")
+    if mode=="balloon":
+        delays["inflate_request_to_80pct_reclaim_s"]=(
+            round(first-inflate_request,3)
+            if first is not None and inflate_request is not None and first>=inflate_request else None)
+        delays["inflate_reply_to_80pct_reclaim_s"]=(
+            round(first-inflate_reply,3)
+            if first is not None and inflate_reply is not None and first>=inflate_reply else None)
     for kind in ("inflate","deflate"):
         a=timestamp(events,"balloon_"+kind+"_before")
         b=timestamp(events,"balloon_"+kind+"_after")
@@ -94,8 +103,9 @@ def analyze(rows,console,events,meta,validation):
     next_time=agent["after_reclaim"]["latency_median_ms"]
     first_ms=touch["first_touch"]["latency_ms"]
     second_ms=touch["second_touch"]["latency_ms"]
+    reporting_confirmed="Free page reporting enabled" in console if mode=="reporting" else None
     return {
-        "valid":True,"mode":mode,"source_commit":meta.get("source_commit"),
+        "valid":True,"mode":mode,"guest_reporting_boot_confirmed":reporting_confirmed,"source_commit":meta.get("source_commit"),
         "workload_type":"deterministic_code_repair_tool_replay","is_real_llm_agent":False,
         "sampling_interval_s":meta.get("monitor_interval_s"),
         "memory":{
@@ -125,10 +135,10 @@ def analyze(rows,console,events,meta,validation):
              "balloon_deflated","reporting_after_free","agent_reuse","retouch","retouched")},
         "limitations":[
             "One trial per condition unless the suite is repeated.",
-            "The 80% reclamation delay includes the intentional host policy delay.",
+            "Free-to-reclaim delay includes intentional host policy wait; request-to-reclaim is separate.",
             "The console marker is polled once per second, and host metrics twice per second.",
             "Tool replay is real subprocess/file I/O but uses deterministic planning, not a live LLM agent.",
-            "Free-page reporting needs Guest kernel capability verification."
+            "Reporting capability confirmation comes from Guest boot log."
         ]
     }
 

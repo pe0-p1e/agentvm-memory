@@ -29,8 +29,8 @@ def validate(mode, rows, console):
             warnings.append('No balloon actual_mib measurements in balloon_inflated phase')
         elif max(float(r['balloon_actual_mib']) for r in inflated) < 1:
             warnings.append('Balloon actual_mib never increased: verify guest virtio-balloon driver')
-    if mode == 'reporting':
-        warnings.append('Free-page reporting effectiveness is not asserted: compare RSS and check guest PAGE_REPORTING')
+    if mode == 'reporting' and 'Free page reporting enabled' not in console:
+        warnings.append('Guest did not log Free page reporting enabled: check PAGE_REPORTING')
     return {'mode': mode, 'valid': not (missing or missing_markers),
             'samples_by_phase': dict(phases),
             'missing_phases': missing, 'missing_guest_markers': missing_markers,
