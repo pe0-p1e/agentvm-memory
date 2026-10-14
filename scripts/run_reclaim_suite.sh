@@ -65,14 +65,17 @@ for ((trial=1;trial<=REPEATS;trial++)); do
     [[ -n "$latest" && "$latest" != "$before" && -s "$latest/reclaim.json" ]] || {
       echo "Could not identify complete new run" >&2; exit 3;
     }
-    if (( PUBLISH )); then
-      bash scripts/publish_results.sh "$latest"
-    fi
+    # Record successful VM data before attempting any network operations.
     printf '{"trial":%d,"mode":"%s","run_id":"%s"}\n' \
       "$trial" "$mode" "$(basename "$latest")" >> "$MANIFEST"
-    # Update batch summary after each successful run, for partial batches.
     python3 scripts/aggregate_reclaim.py "$BATCH_DIR"
     rm -f -- "$latest/guest.ext4"
+    if (( PUBLISH )); then
+      if ! bash scripts/publish_results.sh "$latest"; then
+        echo "WARNING: GitHub upload failed; local $latest and batch manifest are preserved." >&2
+        echo "The remaining VM experiments will continue; retry uploads separately." >&2
+      fi
+    fi
   done
 done
 echo "All selected experiments completed; metrics remain under runs/"
