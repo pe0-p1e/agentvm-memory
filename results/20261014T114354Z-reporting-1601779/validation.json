@@ -1,0 +1,17 @@
+{
+  "missing_guest_markers": [],
+  "missing_phases": [],
+  "mode": "reporting",
+  "samples_by_phase": {
+    "agent_reuse": 6,
+    "allocated": 43,
+    "baseline": 23,
+    "booting": 5,
+    "freed": 24,
+    "reporting_after_free": 106,
+    "retouch": 6,
+    "retouched": 22
+  },
+  "valid": true,
+  "warnings": []
+}
