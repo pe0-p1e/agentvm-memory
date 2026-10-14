@@ -1,0 +1,72 @@
+{
+  "agent_reuse": {
+    "balloon_actual_mib_median": 0.0,
+    "guest_available_mib_median": 811.902,
+    "guest_major_faults_median": 402.0,
+    "host_cpu_s_median": 2.74,
+    "host_pss_mib_median": 182.864,
+    "host_rss_mib_median": 182.875,
+    "host_rssanon_mib_median": 176.023,
+    "samples": 6
+  },
+  "allocated": {
+    "balloon_actual_mib_median": 0.0,
+    "guest_available_mib_median": 339.398,
+    "guest_major_faults_median": 402.0,
+    "host_cpu_s_median": 2.51,
+    "host_pss_mib_median": 636.86,
+    "host_rss_mib_median": 636.871,
+    "host_rssanon_mib_median": 630.02,
+    "samples": 43
+  },
+  "baseline": {
+    "balloon_actual_mib_median": 0.0,
+    "guest_available_mib_median": 835.27,
+    "guest_major_faults_median": 402.0,
+    "host_cpu_s_median": 1.94,
+    "host_pss_mib_median": 139.751,
+    "host_rss_mib_median": 139.762,
+    "host_rssanon_mib_median": 132.91,
+    "samples": 23
+  },
+  "freed": {
+    "balloon_actual_mib_median": 0.0,
+    "guest_available_mib_median": 811.898,
+    "guest_major_faults_median": 402.0,
+    "host_cpu_s_median": 2.655,
+    "host_pss_mib_median": 182.864,
+    "host_rss_mib_median": 182.875,
+    "host_rssanon_mib_median": 176.023,
+    "samples": 24
+  },
+  "reporting_after_free": {
+    "balloon_actual_mib_median": 0.0,
+    "guest_available_mib_median": 811.902,
+    "guest_major_faults_median": 402.0,
+    "host_cpu_s_median": 2.7,
+    "host_pss_mib_median": 182.864,
+    "host_rss_mib_median": 182.875,
+    "host_rssanon_mib_median": 176.023,
+    "samples": 106
+  },
+  "retouch": {
+    "balloon_actual_mib_median": 0.0,
+    "guest_available_mib_median": 811.902,
+    "guest_major_faults_median": 402.0,
+    "host_cpu_s_median": 3.37,
+    "host_pss_mib_median": 182.872,
+    "host_rss_mib_median": 182.883,
+    "host_rssanon_mib_median": 176.031,
+    "samples": 6
+  },
+  "retouched": {
+    "balloon_actual_mib_median": 0.0,
+    "guest_available_mib_median": 323.977,
+    "guest_major_faults_median": 402.0,
+    "host_cpu_s_median": 4.51,
+    "host_pss_mib_median": 644.267,
+    "host_rss_mib_median": 644.277,
+    "host_rssanon_mib_median": 637.426,
+    "samples": 22
+  }
+}
