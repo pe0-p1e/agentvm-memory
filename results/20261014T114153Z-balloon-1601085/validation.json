@@ -1,0 +1,18 @@
+{
+  "missing_guest_markers": [],
+  "missing_phases": [],
+  "mode": "balloon",
+  "samples_by_phase": {
+    "agent_reuse": 6,
+    "allocated": 43,
+    "balloon_deflated": 67,
+    "balloon_inflated": 39,
+    "baseline": 23,
+    "booting": 5,
+    "freed": 24,
+    "retouch": 5,
+    "retouched": 23
+  },
+  "valid": true,
+  "warnings": []
+}
