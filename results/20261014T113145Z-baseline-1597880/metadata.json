@@ -1,0 +1,16 @@
+{
+  "mode": "baseline",
+  "memory_mib": 1024,
+  "balloon_mib": 512,
+  "free_page_reporting": false,
+  "timestamp_utc": "2026-10-14T11:31:46Z",
+  "host_kernel": "6.19.9+",
+  "host_machine": "x86_64",
+  "firecracker_binary": "/home/fyzhou/sandbox-study/firecracker/build/cargo_target/x86_64-unknown-linux-musl/debug/firecracker",
+  "firecracker_version": "Firecracker v1.18.0-dev\n\n2026-10-14T19:31:46.337212920 [anonymous-instance:main] Firecracker exiting successfully. exit_code=0",
+  "guest_kernel_sha256": "7c3186723e7ee789f5c5be4d3a1723475a53bc103d5fd2af4bac3815a20d242f",
+  "source_rootfs_sha256": "43137985a9c9dd749711116753b548ab225219260dd982eccadb92289776a6fe",
+  "source_commit": "be61bb19d1ab0cf0e899b095f0a289515910b64b",
+  "workload": "deterministic_code_repair_tool_replay",
+  "monitor_interval_s": 0.5
+}
