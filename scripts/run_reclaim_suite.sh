@@ -33,8 +33,17 @@ done
   echo "Switch to exp/reclaim-cost-workload first" >&2; exit 2;
 }
 mkdir -p runs
+BATCH_ID="$(date -u +%Y%m%dT%H%M%SZ)-reclaim-$"
+BATCH_DIR="$ROOT/runs/batches/$BATCH_ID"
+mkdir -p "$BATCH_DIR"
+MANIFEST="$BATCH_DIR/manifest.jsonl"
+: > "$MANIFEST"
+printf 'Batch: %s\n' "$BATCH_DIR"
 for ((trial=1;trial<=REPEATS;trial++)); do
-  for mode in "${SELECTED_MODES[@]}"; do
+  # Rotate test order between trials to reduce systematic time-of-day bias.
+  for ((position=0;position<${#SELECTED_MODES[@]};position++)); do
+    index=$(( (trial - 1 + position) % ${#SELECTED_MODES[@]} ))
+    mode="${SELECTED_MODES[$index]}"
     echo "=== $mode / repetition $trial of $REPEATS ==="
     cfg="$(mktemp)"
     case "$mode" in
@@ -59,7 +68,13 @@ for ((trial=1;trial<=REPEATS;trial++)); do
     if (( PUBLISH )); then
       bash scripts/publish_results.sh "$latest"
     fi
+    printf '{"trial":%d,"mode":"%s","run_id":"%s"}\n' \
+      "$trial" "$mode" "$(basename "$latest")" >> "$MANIFEST"
+    # Update batch summary after each successful run, for partial batches.
+    python3 scripts/aggregate_reclaim.py "$BATCH_DIR"
     rm -f -- "$latest/guest.ext4"
   done
 done
 echo "All selected experiments completed; metrics remain under runs/"
+echo "Batch manifest: $MANIFEST"
+echo "Aggregate result: $BATCH_DIR/aggregate.json"
